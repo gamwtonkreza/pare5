@@ -461,8 +461,8 @@ function createInterface({today, country_names}) {
 
 function todayChallenge() {
   return Promise.all([
-    fetch('/today.json').then(response => response.json()),
-    fetch('/country_names.json').then(response => response.json())
+    fetch('/pare5/today.json').then(response => response.json()),
+    fetch('/pare5/country_names.json').then(response => response.json())
   ]).then(([today, country_names]) => {
     // Store in localStorage for clipboard access
     localStorage.setItem('todayChallenge', JSON.stringify(today));
