@@ -3,14 +3,17 @@ import pandas as pd
 import random
 import json
 
+# reroller
+reroller = 2
+
 # unique id for each day
 def today_id() -> int:
     today = datetime.date.today()
-    day = today.day
+    day = today.day + 1
     month = today.month
     year = today.year
 
-    return year*10000 + month*100 + day
+    return reroller*year*10000 + month*100 + day
 
 def acceptable_name(name: str) -> bool:
     print(product_name)
