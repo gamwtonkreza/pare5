@@ -96,9 +96,13 @@ function createClipboardButton(container, today, selectedCountries) {
     const emojiString = selectedCountries.map(country => country.emoji).join(' ');
     
     // Construct clipboard text
+    // count the amount of green emojis
+    const greenEmojis = emojiString.match(/🟢/g) || [];
+    const emojiCount = greenEmojis.length;
+
     const clipboardText = `${currentDate} - ${today.product_name} in ${today.year}
 ${percentage}%
-${emojiString} ${selectedCountries.length}/5
+${emojiString} ${emojiCount}/5
 
 Play: ${window.location.href}`;
 
