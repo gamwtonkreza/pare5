@@ -165,7 +165,7 @@ function createInterface({today, country_names}) {
   container.appendChild(heading);
   
   const description = document.createElement('p');
-  description.textContent = 'Select the 5 biggest exporters in this category in ${today.year}';
+  description.textContent = `Select the 5 biggest exporters in this category in ${today.year}`;
   container.appendChild(description);
   
   const slotsContainer = document.createElement('div');

@@ -4,7 +4,7 @@ import random
 import json
 
 # reroller
-reroller = 2
+reroller = 6
 
 # unique id for each day
 def today_id() -> int:
