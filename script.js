@@ -96,7 +96,7 @@ function createClipboardButton(container, today, selectedCountries) {
     const emojiString = selectedCountries.map(country => country.emoji).join(' ');
     
     // Construct clipboard text
-    const clipboardText = `${currentDate} - ${today.product_name}
+    const clipboardText = `${currentDate} - ${today.product_name} in ${today.year}
 ${percentage}%
 ${emojiString} ${selectedCountries.length}/5
 
