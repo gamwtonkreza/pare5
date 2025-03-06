@@ -1,78 +1,291 @@
 {
-    "product_name": "Vessels: warships",
-    "sum_of_top_5": 924408.816,
+    "product_name": "Casein",
+    "year": 2016,
+    "sum_of_top_5": 920087.631,
     "exporters": [
         {
-            "name": "Spain",
-            "value": 577698.64
-        },
-        {
-            "name": "Germany",
-            "value": 199110.271
-        },
-        {
-            "name": "USA",
-            "value": 54115.703
-        },
-        {
-            "name": "United Kingdom",
-            "value": 48241.202000000005
-        },
-        {
-            "name": "Israel",
-            "value": 45243.0
-        },
-        {
             "name": "New Zealand",
-            "value": 21723.329
+            "value": 429706.832
         },
         {
-            "name": "Italy",
-            "value": 3347.898
-        },
-        {
-            "name": "Estonia",
-            "value": 3069.173
-        },
-        {
-            "name": "China",
-            "value": 112.72
-        },
-        {
-            "name": "Egypt",
-            "value": 78.353
+            "name": "Ireland",
+            "value": 283715.693
         },
         {
             "name": "France",
-            "value": 77.23
+            "value": 118939.626
         },
         {
-            "name": "India",
-            "value": 57.37
+            "name": "Germany",
+            "value": 55964.357
+        },
+        {
+            "name": "Ukraine",
+            "value": 31761.123000000003
         },
         {
             "name": "Australia",
-            "value": 38.533
+            "value": 31654.417
+        },
+        {
+            "name": "India",
+            "value": 29474.549
+        },
+        {
+            "name": "Netherlands",
+            "value": 27284.912
+        },
+        {
+            "name": "Austria",
+            "value": 23803.56
+        },
+        {
+            "name": "Argentina",
+            "value": 20647.717
+        },
+        {
+            "name": "Poland",
+            "value": 17678.581
+        },
+        {
+            "name": "Belarus",
+            "value": 11407.24
+        },
+        {
+            "name": "Uganda",
+            "value": 7660.737999999999
         },
         {
             "name": "Denmark",
-            "value": 32.2
+            "value": 6332.873
         },
         {
-            "name": "Viet Nam",
-            "value": 20.26
+            "name": "Spain",
+            "value": 6205.229
         },
         {
-            "name": "Czechia",
-            "value": 17.892
+            "name": "Latvia",
+            "value": 5913.268
+        },
+        {
+            "name": "USA",
+            "value": 5720.684
+        },
+        {
+            "name": "China",
+            "value": 2904.167
+        },
+        {
+            "name": "United Kingdom",
+            "value": 2522.871
+        },
+        {
+            "name": "Italy",
+            "value": 1904.789
+        },
+        {
+            "name": "South Africa",
+            "value": 1497.419
+        },
+        {
+            "name": "Lithuania",
+            "value": 999.9
+        },
+        {
+            "name": "Russian Federation",
+            "value": 842.675
+        },
+        {
+            "name": "Singapore",
+            "value": 802.388
         },
         {
             "name": "Canada",
-            "value": 17.233
+            "value": 739.439
         },
         {
-            "name": "Bahrain",
-            "value": 4.687
+            "name": "Belgium",
+            "value": 651.923
+        },
+        {
+            "name": "Japan",
+            "value": 553.028
+        },
+        {
+            "name": "Slovakia",
+            "value": 494.645
+        },
+        {
+            "name": "China, Hong Kong SAR",
+            "value": 362.137
+        },
+        {
+            "name": "Bulgaria",
+            "value": 325.806
+        },
+        {
+            "name": "Estonia",
+            "value": 258.891
+        },
+        {
+            "name": "United Arab Emirates",
+            "value": 257.744
+        },
+        {
+            "name": "Other Asia, nes",
+            "value": 233.8
+        },
+        {
+            "name": "Switzerland",
+            "value": 147.591
+        },
+        {
+            "name": "Rep. of Korea",
+            "value": 145.303
+        },
+        {
+            "name": "Portugal",
+            "value": 143.986
+        },
+        {
+            "name": "Thailand",
+            "value": 120.027
+        },
+        {
+            "name": "Sweden",
+            "value": 118.312
+        },
+        {
+            "name": "Indonesia",
+            "value": 111.672
+        },
+        {
+            "name": "Greece",
+            "value": 93.115
+        },
+        {
+            "name": "T\u00c3\u00bcrkiye",
+            "value": 71.271
+        },
+        {
+            "name": "Czechia",
+            "value": 69.04
+        },
+        {
+            "name": "Philippines",
+            "value": 66.325
+        },
+        {
+            "name": "Antigua and Barbuda",
+            "value": 61.874
+        },
+        {
+            "name": "Malaysia",
+            "value": 55.568
+        },
+        {
+            "name": "Israel",
+            "value": 29.0
+        },
+        {
+            "name": "Finland",
+            "value": 25.603
+        },
+        {
+            "name": "Panama",
+            "value": 22.802
+        },
+        {
+            "name": "Romania",
+            "value": 16.968
+        },
+        {
+            "name": "Morocco",
+            "value": 15.112
+        },
+        {
+            "name": "Eswatini",
+            "value": 14.6
+        },
+        {
+            "name": "Hungary",
+            "value": 11.947
+        },
+        {
+            "name": "Chile",
+            "value": 11.469
+        },
+        {
+            "name": "Kazakhstan",
+            "value": 9.773
+        },
+        {
+            "name": "Luxembourg",
+            "value": 8.702
+        },
+        {
+            "name": "Norway",
+            "value": 5.91
+        },
+        {
+            "name": "Guatemala",
+            "value": 5.551
+        },
+        {
+            "name": "Colombia",
+            "value": 3.246
+        },
+        {
+            "name": "Georgia",
+            "value": 0.972
+        },
+        {
+            "name": "Serbia",
+            "value": 0.793
+        },
+        {
+            "name": "Slovenia",
+            "value": 0.6950000000000001
+        },
+        {
+            "name": "Mexico",
+            "value": 0.4579999999999999
+        },
+        {
+            "name": "Venezuela",
+            "value": 0.385
+        },
+        {
+            "name": "Fiji",
+            "value": 0.368
+        },
+        {
+            "name": "Mauritius",
+            "value": 0.266
+        },
+        {
+            "name": "Nigeria",
+            "value": 0.219
+        },
+        {
+            "name": "Viet Nam",
+            "value": 0.036
+        },
+        {
+            "name": "Botswana",
+            "value": 0.019
+        },
+        {
+            "name": "Croatia",
+            "value": 0.017
+        },
+        {
+            "name": "Malta",
+            "value": 0.008
+        },
+        {
+            "name": "Lebanon",
+            "value": 0.002
         }
     ]
 }

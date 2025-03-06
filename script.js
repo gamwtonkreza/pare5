@@ -161,11 +161,11 @@ function createInterface({today, country_names}) {
   addUnsplashImage(container, today.product_name); // Fetch and insert the image
   
   const heading = document.createElement('h2');
-  heading.textContent = `Today's Challenge: ${today.product_name}`;
+  heading.textContent = `Today's Challenge: ${today.product_name} in ${today.year}`;
   container.appendChild(heading);
   
   const description = document.createElement('p');
-  description.textContent = 'Select the 5 countries with the highest export values for this category';
+  description.textContent = 'Select the 5 biggest exporters in this category in ${today.year}';
   container.appendChild(description);
   
   const slotsContainer = document.createElement('div');

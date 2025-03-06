@@ -25,13 +25,16 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
+year = random.randint(1995, 2023)
 while True:
     idx = random.randint(0, len(product_codes))
     product_code, product_name = product_codes.iloc[idx]
     if acceptable_name(product_name):
         break
 
-exports = pd.read_csv('CSV_DATA/exports.csv')
+# exports = pd.read_csv('CSV_DATA/exports.csv')
+exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
+exports = exports_full[exports_full['year'] == year]
 country_codes = pd.read_csv('CSV_DATA/country_codes.csv')
 # country_codes_json = [row.country_name
 #     for row in country_codes.itertuples()
@@ -50,6 +53,7 @@ e.sort_values(by='value', inplace=True, ascending=False)
 
 today_json = {
     "product_name": product_name,
+    "year": year,
     "sum_of_top_5": sum_of_top_5,
     "exporters": [
         { "name": row.country_name, "value" : row.value }

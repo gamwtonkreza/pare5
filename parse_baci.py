@@ -14,9 +14,35 @@ import json
 
 import pandas as pd
 
-# Only work with 2023 data
-df = pd.read_csv('BACI_HS22_V202501/BACI_HS22_Y2023_V202501.csv')
-df.head()
+# years from 1995 to 2023
+# empty dataframe
+export_data = pd.DataFrame()
+
+for year in range(1995, 2024):
+    # Load the data
+    # t, i, j, k, v, q
+    data = pd.read_csv(f'./BACI_HS92_V202501/BACI_HS92_Y{year}_V202501.csv')
+
+    # drop the importer column
+    data = data.drop(columns=['j'])
+
+    # sum the value and q columns for the same i, k, t
+    data = data.groupby(['i', 'k', 't']).sum().reset_index()
+
+    # append to the export_data dataframe
+    export_data = export_data._append(data)
+
+# rename the columns
+export_data = export_data.rename(columns={'i': 'country_code', 'k': 'product_code', 't': 'year', 'v': 'value', 'q': 'quantity'})
+
+# write to csv
+export_data.to_csv('CSV_DATA/exports_full.csv', index=False)
+
+
+
+
+
+
 
 # Load the product codes
 # code, description
