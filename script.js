@@ -1,5 +1,6 @@
 function toHumanReadableFormat(num) {
   if (num === 0) return '$0';
+  num = num * 1000;
   
   const abs = Math.abs(num);
   if (abs >= 1_000_000_000) {
