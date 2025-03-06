@@ -55,7 +55,7 @@ function generateShareableUrl(today, selectedCountries) {
 function displayCorrectAnswers(container, today) {
   // Create header for correct answers section
   const correctHeader = document.createElement('h3');
-  correctHeader.textContent = 'Correct Answers (Top 5 Exporters)';
+  correctHeader.textContent = 'Λύσεις';
   correctHeader.style.marginTop = '30px';
   correctHeader.style.marginBottom = '15px';
   container.appendChild(correctHeader);
