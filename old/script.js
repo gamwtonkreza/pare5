@@ -1,5 +1,6 @@
 function toHumanReadableFormat(num) {
   if (num === 0) return '$0';
+  num = num * 1000;
   
   const abs = Math.abs(num);
   if (abs >= 1_000_000_000) {
@@ -14,36 +15,12 @@ function toHumanReadableFormat(num) {
   return `$${num.toFixed(2)}`;
 }
 
-function rankExporters(exporters) {
-  const sortedExporters = [...exporters].sort((a, b) => b.value - a.value);
-  
-  const rankedExporters = [];
-  let currentRank = 1;
-  
-  sortedExporters.forEach((exporter, index) => {
-    if (index === 0 || exporter.value !== sortedExporters[index - 1].value) {
-      currentRank = index + 1;
-    }
-    
-    rankedExporters.push({
-      ...exporter,
-      rank: exporter.value > 0 ? currentRank : sortedExporters.length + 1
-    });
-  });
-  
-  return rankedExporters;
-}
-
-function getCountryColor(exporters, countryName, countryValue) {
-  const rankedExporters = rankExporters(exporters);
-  
-  const countryExporter = rankedExporters.find(exp => exp.name === countryName);
-  
-  if (!countryExporter) {
+function getCountryColor(rank, countryValue) {
+  if (countryValue === 0) {
     return '#FF6B6B'; // Red for not found
   }
   
-  if (countryExporter.rank <= 5) {
+  if (rank <= 5) {
     return '#81C784'; // Green for top 5
   }
   
@@ -54,35 +31,101 @@ function getCountryColor(exporters, countryName, countryValue) {
   return '#FF6B6B'; // Red for zero value
 }
 
-function todayChallenge() {
-  return Promise.all([
-    fetch('/today.json').then(response => response.json()),
-    fetch('/country_names.json').then(response => response.json())
-  ]).then(([today, country_names]) => {
-    return { today, country_names };
-  })
+function createClipboardButton(container, today, selectedCountries) {
+  // Remove the previous submit button
+  const oldSubmitBtn = container.querySelector('button');
+  if (oldSubmitBtn) {
+    oldSubmitBtn.remove();
+  }
+
+  const clipboardBtn = document.createElement('button');
+  clipboardBtn.textContent = 'Copy Results';
+  clipboardBtn.style.padding = '8px 15px';
+  clipboardBtn.style.backgroundColor = '#FFA500'; // Orange to match the design
+  clipboardBtn.style.color = 'white';
+  clipboardBtn.style.border = 'none';
+  clipboardBtn.style.borderRadius = '4px';
+  clipboardBtn.style.cursor = 'pointer';
+  clipboardBtn.style.position = 'relative';
+  
+  // Flashing animation
+  const flashAnimation = `
+    @keyframes flash {
+      0%, 50% { opacity: 1; }
+      25%, 75% { opacity: 0.5; }
+    }
+  `;
+  const styleSheet = document.createElement("style")
+  styleSheet.type = "text/css"
+  styleSheet.innerText = flashAnimation;
+  document.head.appendChild(styleSheet);
+  
+  clipboardBtn.style.animation = 'flash 1.5s infinite';
+
+  clipboardBtn.addEventListener('click', () => {
+    // Prepare the clipboard text
+    const today = JSON.parse(localStorage.getItem('todayChallenge'));
+    const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
+      .filter(slot => slot.querySelector('.country-name').textContent)
+      .map(slot => {
+        const countryName = slot.querySelector('.country-name').textContent;
+        const valueSpan = slot.querySelector('.export-value');
+        const backgroundColor = slot.style.backgroundColor;
+        
+        let emoji = '⚪'; // Default neutral emoji
+        if (backgroundColor === 'rgb(129, 199, 132)') emoji = '🟢'; // Green
+        if (backgroundColor === 'rgb(255, 107, 107)') emoji = '🔴'; // Red
+        if (backgroundColor === 'rgb(255, 183, 77)') emoji = '🟡'; // Orange
+        
+        return { name: countryName, emoji };
+      });
+
+    // Get current date
+    const currentDate = new Date().toLocaleDateString('en-US');
+    
+    // Calculate percentage
+    const chosenExportValue = selectedCountries.reduce(
+      (acc, item) => {
+        const countryExporter = today.exporters.find(c => c.name === item.name);
+        return acc + (countryExporter ? parseInt(countryExporter.value) : 0);
+      }, 0
+    );
+    const percentage = (chosenExportValue / today.sum_of_top_5 * 100).toFixed(2);
+    
+    // Determine emojis for results
+    const emojiString = selectedCountries.map(country => country.emoji).join(' ');
+    
+    // Construct clipboard text
+    // count the amount of green emojis
+    const greenEmojis = emojiString.match(/🟢/g) || [];
+    const emojiCount = greenEmojis.length;
+
+    const clipboardText = `${currentDate} - ${today.product_name} in ${today.year}
+${percentage}%
+${emojiString} ${emojiCount}/5
+
+Play: ${window.location.href}`;
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(clipboardText).then(() => {
+      // Temporary style change to indicate successful copy
+      clipboardBtn.textContent = 'Copied!';
+      clipboardBtn.style.backgroundColor = '#4CAF50';
+      setTimeout(() => {
+        clipboardBtn.textContent = 'Copy Results';
+        clipboardBtn.style.backgroundColor = '#FFA500';
+      }, 2000);
+    }).catch(err => {
+      console.error('Failed to copy: ', err);
+    });
+  });
+
+  container.appendChild(clipboardBtn);
 }
 
-let have_started = false;
-function startChallenge() {
-    if (have_started) {
-        return;
-    }
-    have_started = true;
-   
-    todayChallenge()
-        .then(data => {
-            console.log("Today's challenge:", data.today);
-            createInterface(data);
-        })
-        .catch(err => {
-            console.error("Failed to load challenge:", err);
-        });
-}
 async function addUnsplashImage(container, query) {
   const accessKey = '0VpGpJxCvP-QWQyOHlmQzv4dhG_6sX9EdbmXTTMMqQo';
   const url = `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&client_id=${accessKey}`;
-
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -94,7 +137,6 @@ async function addUnsplashImage(container, query) {
       imgContainer.style.overflow = 'hidden';
       imgContainer.style.borderRadius = '8px';
       imgContainer.style.marginBottom = '10px';
-
       const img = document.createElement('img');
       img.src = data.urls.regular;
       img.alt = query;
@@ -104,7 +146,6 @@ async function addUnsplashImage(container, query) {
       img.style.width = '100%';
       img.style.height = '100%';
       img.style.objectFit = 'cover';
-
       imgContainer.appendChild(img);
       container.insertBefore(imgContainer, container.firstChild);
     }
@@ -120,15 +161,15 @@ function createInterface({today, country_names}) {
   container.style.fontFamily = 'Arial, sans-serif';
   container.style.maxWidth = '500px';
   container.style.margin = '0 auto';
-
+  
   addUnsplashImage(container, today.product_name); // Fetch and insert the image
-
+  
   const heading = document.createElement('h2');
-  heading.textContent = `Today's Challenge: ${today.product_name}`;
+  heading.textContent = `Today's Challenge: ${today.product_name} in ${today.year}`;
   container.appendChild(heading);
   
   const description = document.createElement('p');
-  description.textContent = 'Select the 5 countries with the highest export values for this category';
+  description.textContent = `Select the 5 biggest exporters in this category in ${today.year}`;
   container.appendChild(description);
   
   const slotsContainer = document.createElement('div');
@@ -355,19 +396,13 @@ function createInterface({today, country_names}) {
         
         const valueSpan = emptySlot.querySelector('.export-value');
         const exportersValuesArray = today.exporters.map(exporter => exporter.value);
-        // find the index of the value in the sorted array, if the value is not found, return len + 1
-        let rank = exportersValuesArray.sort((a, b) => b - a).indexOf(value);
-        if (rank === -1) {
+        let rank = exportersValuesArray.sort((a, b) => b - a).indexOf(value) + 1;
+        if (rank === 0) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
-
-        // const rankedExporters = rankExporters(today.exporters);
-        // const countryExporterWithRank = rankedExporters.find(exp => exp.name === selectedCountry);
         
-        // valueSpan.textContent = `${toHumanReadableFormat(value)} (Rank: ${countryExporterWithRank?.rank})`;
-        
-        emptySlot.style.backgroundColor = getCountryColor(today.exporters, selectedCountry, value);
+        emptySlot.style.backgroundColor = getCountryColor(rank, value);
         
         const filledCountries = Array.from(slotsContainer.querySelectorAll('.country-slot'))
           .filter(slot => slot.querySelector('.country-name').textContent)
@@ -388,13 +423,9 @@ function createInterface({today, country_names}) {
         
         if (filledCountries.length >= 5) {
           searchInput.disabled = true;
-          submitBtn.disabled = true;
           
-          const completionMsg = document.createElement('p');
-          completionMsg.textContent = 'All countries selected! Check your score above.';
-          completionMsg.style.color = '#4CAF50';
-          completionMsg.style.fontWeight = 'bold';
-          container.appendChild(completionMsg);
+          // Replace submit button with clipboard button
+          createClipboardButton(container, today, filledCountries);
         }
       }
     }
@@ -409,6 +440,32 @@ function createInterface({today, country_names}) {
   updateBarGraph([]);
 }
 
-// function endResults() {}
-// document.getElementById("start-challenge").addEventListener("click", startChallenge);
+function todayChallenge() {
+  return Promise.all([
+    fetch('/today.json').then(response => response.json()),
+    fetch('/country_names.json').then(response => response.json())
+  ]).then(([today, country_names]) => {
+    // Store in localStorage for clipboard access
+    localStorage.setItem('todayChallenge', JSON.stringify(today));
+    return { today, country_names };
+  })
+}
+
+let have_started = false;
+function startChallenge() {
+    if (have_started) {
+        return;
+    }
+    have_started = true;
+   
+    todayChallenge()
+        .then(data => {
+            console.log("Today's challenge:", data.today);
+            createInterface(data);
+        })
+        .catch(err => {
+            console.error("Failed to load challenge:", err);
+        });
+}
+
 window.addEventListener('load', startChallenge);
