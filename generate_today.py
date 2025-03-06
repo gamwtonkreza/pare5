@@ -4,7 +4,7 @@ import random
 import json
 
 # reroller
-reroller = 6
+reroller = 7
 
 # unique id for each day
 def today_id() -> int:
@@ -17,7 +17,7 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     print(product_name)
-    return len(name) < 20
+    return len(name) < 30
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
@@ -25,7 +25,7 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
-year = random.randint(1995, 2023)
+year = random.randint(1995, 2000)
 while True:
     idx = random.randint(0, len(product_codes))
     product_code, product_name = product_codes.iloc[idx]
