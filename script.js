@@ -52,6 +52,72 @@ function generateShareableUrl(today, selectedCountries) {
   }
 }
 
+function displayCorrectAnswers(container, today) {
+  // Create header for correct answers section
+  const correctHeader = document.createElement('h3');
+  correctHeader.textContent = 'Correct Answers (Top 5 Exporters)';
+  correctHeader.style.marginTop = '30px';
+  correctHeader.style.marginBottom = '15px';
+  container.appendChild(correctHeader);
+  
+  // Create container for correct answer slots
+  const correctSlotsContainer = document.createElement('div');
+  correctSlotsContainer.className = 'correct-country-slots';
+  correctSlotsContainer.style.display = 'flex';
+  correctSlotsContainer.style.flexDirection = 'column';
+  correctSlotsContainer.style.gap = '10px';
+  correctSlotsContainer.style.marginBottom = '20px';
+  
+  // Get top 5 exporters sorted by value
+  const top5Exporters = [...today.exporters]
+    .sort((a, b) => parseInt(b.value) - parseInt(a.value))
+    .slice(0, 5);
+  
+  // Create slots for each of the top 5 exporters
+  top5Exporters.forEach((exporter, index) => {
+    const slot = document.createElement('div');
+    slot.className = 'correct-country-slot';
+    slot.style.width = '100%';
+    slot.style.height = '40px';
+    slot.style.backgroundColor = '#81C784'; // Always green for correct answers
+    slot.style.display = 'flex';
+    slot.style.alignItems = 'center';
+    slot.style.justifyContent = 'space-between';
+    slot.style.borderRadius = '5px';
+    slot.style.fontWeight = 'bold';
+    slot.style.padding = '0 10px';
+    slot.style.boxSizing = 'border-box';
+    
+    // Add rank indicator
+    const rankIndicator = document.createElement('span');
+    rankIndicator.textContent = `#${index + 1}`;
+    rankIndicator.style.minWidth = '30px';
+    rankIndicator.style.textAlign = 'center';
+    rankIndicator.style.backgroundColor = '#4CAF50';
+    rankIndicator.style.color = 'white';
+    rankIndicator.style.borderRadius = '4px';
+    rankIndicator.style.padding = '2px 5px';
+    rankIndicator.style.marginRight = '10px';
+    slot.appendChild(rankIndicator);
+    
+    // Country name
+    const countryName = document.createElement('span');
+    countryName.textContent = exporter.name;
+    countryName.style.flexGrow = '1';
+    slot.appendChild(countryName);
+    
+    // Value
+    const exportValue = document.createElement('span');
+    exportValue.textContent = toHumanReadableFormat(exporter.value);
+    exportValue.style.fontFamily = 'monospace';
+    slot.appendChild(exportValue);
+    
+    correctSlotsContainer.appendChild(slot);
+  });
+  
+  container.appendChild(correctSlotsContainer);
+}
+
 function createClipboardButton(container, today, selectedCountries) {
   // Remove the previous submit button
   const oldSubmitBtn = container.querySelector('button');
@@ -83,6 +149,7 @@ function createClipboardButton(container, today, selectedCountries) {
   clipboardBtn.style.animation = 'flash 1.5s infinite';
   clipboardBtn.addEventListener('click', () => {
     // Prepare the clipboard text
+    const today = JSON.parse(localStorage.getItem('todayChallenge'));
     const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
       .filter(slot => slot.querySelector('.country-name').textContent)
       .map(slot => {
@@ -138,6 +205,9 @@ My Result: ${shareableUrl}`;
     });
   });
   container.appendChild(clipboardBtn);
+  
+  // Display correct answers
+  displayCorrectAnswers(container, today);
 }
 
 async function addUnsplashImage(container, query) {
@@ -531,7 +601,7 @@ function createInterface({today, country_names}) {
     
     updateBarGraph(filledCountries);
     
-    // Create clipboard button
+    // Create clipboard button and show correct answers
     if (filledCountries.length === 5) {
       createClipboardButton(container, today, filledCountries.map(country => ({ name: country.country })));
     }

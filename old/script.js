@@ -31,13 +31,33 @@ function getCountryColor(rank, countryValue) {
   return '#FF6B6B'; // Red for zero value
 }
 
+function generateShareableUrl(today, selectedCountries) {
+  try {
+    // Create a data object with essential information
+    const data = {
+      product: today.product_name,
+      year: today.year,
+      countries: selectedCountries.map(country => country.name)
+    };
+    
+    // Convert to base64
+    const encodedData = btoa(JSON.stringify(data));
+    
+    // Create URL with data in hash fragment
+    const baseUrl = window.location.href.split('#')[0];
+    return `${baseUrl}#results=${encodedData}`;
+  } catch (e) {
+    console.error("Error generating URL:", e);
+    return "invalid url";
+  }
+}
+
 function createClipboardButton(container, today, selectedCountries) {
   // Remove the previous submit button
   const oldSubmitBtn = container.querySelector('button');
   if (oldSubmitBtn) {
     oldSubmitBtn.remove();
   }
-
   const clipboardBtn = document.createElement('button');
   clipboardBtn.textContent = 'Copy Results';
   clipboardBtn.style.padding = '8px 15px';
@@ -61,10 +81,8 @@ function createClipboardButton(container, today, selectedCountries) {
   document.head.appendChild(styleSheet);
   
   clipboardBtn.style.animation = 'flash 1.5s infinite';
-
   clipboardBtn.addEventListener('click', () => {
     // Prepare the clipboard text
-    const today = JSON.parse(localStorage.getItem('todayChallenge'));
     const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
       .filter(slot => slot.querySelector('.country-name').textContent)
       .map(slot => {
@@ -79,7 +97,6 @@ function createClipboardButton(container, today, selectedCountries) {
         
         return { name: countryName, emoji };
       });
-
     // Get current date
     const currentDate = new Date().toLocaleDateString('en-US');
     
@@ -95,17 +112,18 @@ function createClipboardButton(container, today, selectedCountries) {
     // Determine emojis for results
     const emojiString = selectedCountries.map(country => country.emoji).join(' ');
     
+    // Generate shareable URL
+    const shareableUrl = generateShareableUrl(today, selectedCountries);
+    
     // Construct clipboard text
     // count the amount of green emojis
     const greenEmojis = emojiString.match(/🟢/g) || [];
     const emojiCount = greenEmojis.length;
-
     const clipboardText = `${currentDate} - ${today.product_name} in ${today.year}
 ${percentage}%
 ${emojiString} ${emojiCount}/5
-
-Play: ${window.location.href}`;
-
+Play: ${window.location.href}
+My Result: ${shareableUrl}`;
     // Copy to clipboard
     navigator.clipboard.writeText(clipboardText).then(() => {
       // Temporary style change to indicate successful copy
@@ -119,7 +137,6 @@ Play: ${window.location.href}`;
       console.error('Failed to copy: ', err);
     });
   });
-
   container.appendChild(clipboardBtn);
 }
 
@@ -162,11 +179,46 @@ function createInterface({today, country_names}) {
   container.style.maxWidth = '500px';
   container.style.margin = '0 auto';
   
+  // Check if there's a shared result in the URL
+  const hashParams = window.location.hash.substring(1).split('&');
+  let sharedResult = null;
+  
+  for (const param of hashParams) {
+    if (param.startsWith('results=')) {
+      try {
+        const encodedData = param.split('=')[1];
+        sharedResult = JSON.parse(atob(encodedData));
+        
+        // Validate the shared result
+        if (!sharedResult.product || !sharedResult.year || !Array.isArray(sharedResult.countries)) {
+          console.error("Invalid shared result format");
+          sharedResult = null;
+        }
+      } catch (e) {
+        console.error("Error parsing shared result:", e);
+        alert("Invalid URL");
+        sharedResult = null;
+      }
+      break;
+    }
+  }
+  
   addUnsplashImage(container, today.product_name); // Fetch and insert the image
   
   const heading = document.createElement('h2');
   heading.textContent = `Today's Challenge: ${today.product_name} in ${today.year}`;
   container.appendChild(heading);
+  
+  // If viewing a shared result, show that info
+  if (sharedResult && sharedResult.product === today.product_name && sharedResult.year === today.year) {
+    const sharedInfo = document.createElement('div');
+    sharedInfo.style.backgroundColor = '#f0f0f0';
+    sharedInfo.style.padding = '10px';
+    sharedInfo.style.borderRadius = '5px';
+    sharedInfo.style.marginBottom = '15px';
+    sharedInfo.innerHTML = `<strong>Viewing shared result</strong>`;
+    container.appendChild(sharedInfo);
+  }
   
   const description = document.createElement('p');
   description.textContent = `Select the 5 biggest exporters in this category in ${today.year}`;
@@ -437,13 +489,61 @@ function createInterface({today, country_names}) {
     }
   });
   
-  updateBarGraph([]);
+  // If viewing a shared result, automatically fill in the countries
+  if (sharedResult) {
+    // Disable search and submit
+    searchInput.disabled = true;
+    submitBtn.disabled = true;
+    
+    // Fill in the countries from the shared result
+    const slots = Array.from(slotsContainer.querySelectorAll('.country-slot'));
+    const countriesToFill = sharedResult.countries.slice(0, 5); // Limit to 5 countries
+    
+    countriesToFill.forEach((countryName, index) => {
+      if (index < slots.length) {
+        const slot = slots[index];
+        const nameSpan = slot.querySelector('.country-name');
+        nameSpan.textContent = countryName;
+        
+        const countryExporter = today.exporters.find(c => c.name === countryName);
+        const value = countryExporter?.value || 0;
+        
+        const valueSpan = slot.querySelector('.export-value');
+        const exportersValuesArray = today.exporters.map(exporter => exporter.value);
+        let rank = exportersValuesArray.sort((a, b) => b - a).indexOf(value) + 1;
+        if (rank === 0) {
+          rank = exportersValuesArray.length + 1;
+        }
+        valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
+        
+        slot.style.backgroundColor = getCountryColor(rank, value);
+      }
+    });
+    
+    // Update bar graph
+    const filledCountries = countriesToFill.map(countryName => {
+      const countryExporter = today.exporters.find(c => c.name === countryName);
+      return {
+        country: countryName,
+        value: countryExporter ? countryExporter.value : 0
+      };
+    });
+    
+    updateBarGraph(filledCountries);
+    
+    // Create clipboard button
+    if (filledCountries.length === 5) {
+      createClipboardButton(container, today, filledCountries.map(country => ({ name: country.country })));
+    }
+  } else {
+    updateBarGraph([]);
+  }
 }
 
 function todayChallenge() {
   return Promise.all([
-    fetch('/today.json').then(response => response.json()),
-    fetch('/country_names.json').then(response => response.json())
+    fetch('/pare5/today.json').then(response => response.json()),
+    fetch('/pare5/country_names.json').then(response => response.json())
   ]).then(([today, country_names]) => {
     // Store in localStorage for clipboard access
     localStorage.setItem('todayChallenge', JSON.stringify(today));
@@ -467,5 +567,4 @@ function startChallenge() {
             console.error("Failed to load challenge:", err);
         });
 }
-
 window.addEventListener('load', startChallenge);
