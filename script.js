@@ -15,36 +15,12 @@ function toHumanReadableFormat(num) {
   return `$${num.toFixed(2)}`;
 }
 
-function rankExporters(exporters) {
-  const sortedExporters = [...exporters].sort((a, b) => b.value - a.value);
-  
-  const rankedExporters = [];
-  let currentRank = 1;
-  
-  sortedExporters.forEach((exporter, index) => {
-    if (index === 0 || exporter.value !== sortedExporters[index - 1].value) {
-      currentRank = index + 1;
-    }
-    
-    rankedExporters.push({
-      ...exporter,
-      rank: exporter.value > 0 ? currentRank : sortedExporters.length + 1
-    });
-  });
-  
-  return rankedExporters;
-}
-
-function getCountryColor(exporters, countryName, countryValue) {
-  const rankedExporters = rankExporters(exporters);
-  
-  const countryExporter = rankedExporters.find(exp => exp.name === countryName);
-  
-  if (!countryExporter) {
+function getCountryColor(rank, countryValue) {
+  if (countryValue === 0) {
     return '#FF6B6B'; // Red for not found
   }
   
-  if (countryExporter.rank <= 5) {
+  if (rank <= 5) {
     return '#81C784'; // Green for top 5
   }
   
@@ -416,13 +392,13 @@ function createInterface({today, country_names}) {
         
         const valueSpan = emptySlot.querySelector('.export-value');
         const exportersValuesArray = today.exporters.map(exporter => exporter.value);
-        let rank = exportersValuesArray.sort((a, b) => b - a).indexOf(value);
-        if (rank === -1) {
+        let rank = exportersValuesArray.sort((a, b) => b - a).indexOf(value) + 1;
+        if (rank === 0) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
         
-        emptySlot.style.backgroundColor = getCountryColor(today.exporters, selectedCountry, value);
+        emptySlot.style.backgroundColor = getCountryColor(rank, value);
         
         const filledCountries = Array.from(slotsContainer.querySelectorAll('.country-slot'))
           .filter(slot => slot.querySelector('.country-name').textContent)
