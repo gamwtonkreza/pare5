@@ -4,7 +4,7 @@ import random
 import json
 
 # reroller
-reroller = 12
+reroller = 13
 
 def get_countries_by_year(year):
     """
