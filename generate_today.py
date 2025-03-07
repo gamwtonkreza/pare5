@@ -205,7 +205,7 @@ while True:
     if acceptable_name(product_name):
         break
 
-# exports = pd.read_csv('CSV_DATA/exports.csv')
+# exports = pd.read_csv('CSV_DATA/exports.csv') 
 exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
 exports = exports_full[exports_full['year'] == year]
 country_codes = get_countries_by_year(year)
