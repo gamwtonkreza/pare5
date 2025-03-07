@@ -52,6 +52,72 @@ function generateShareableUrl(today, selectedCountries) {
   }
 }
 
+function displayCorrectAnswers(container, today) {
+  // Create header for correct answers section
+  const correctHeader = document.createElement('h3');
+  correctHeader.textContent = 'Λύσεις';
+  correctHeader.style.marginTop = '30px';
+  correctHeader.style.marginBottom = '15px';
+  container.appendChild(correctHeader);
+  
+  // Create container for correct answer slots
+  const correctSlotsContainer = document.createElement('div');
+  correctSlotsContainer.className = 'correct-country-slots';
+  correctSlotsContainer.style.display = 'flex';
+  correctSlotsContainer.style.flexDirection = 'column';
+  correctSlotsContainer.style.gap = '10px';
+  correctSlotsContainer.style.marginBottom = '20px';
+  
+  // Get top 5 exporters sorted by value
+  const top5Exporters = [...today.exporters]
+    .sort((a, b) => parseInt(b.value) - parseInt(a.value))
+    .slice(0, 5);
+  
+  // Create slots for each of the top 5 exporters
+  top5Exporters.forEach((exporter, index) => {
+    const slot = document.createElement('div');
+    slot.className = 'correct-country-slot';
+    slot.style.width = '100%';
+    slot.style.height = '40px';
+    slot.style.backgroundColor = '#81C784'; // Always green for correct answers
+    slot.style.display = 'flex';
+    slot.style.alignItems = 'center';
+    slot.style.justifyContent = 'space-between';
+    slot.style.borderRadius = '5px';
+    slot.style.fontWeight = 'bold';
+    slot.style.padding = '0 10px';
+    slot.style.boxSizing = 'border-box';
+    
+    // Add rank indicator
+    const rankIndicator = document.createElement('span');
+    rankIndicator.textContent = `#${index + 1}`;
+    rankIndicator.style.minWidth = '30px';
+    rankIndicator.style.textAlign = 'center';
+    rankIndicator.style.backgroundColor = '#4CAF50';
+    rankIndicator.style.color = 'white';
+    rankIndicator.style.borderRadius = '4px';
+    rankIndicator.style.padding = '2px 5px';
+    rankIndicator.style.marginRight = '10px';
+    slot.appendChild(rankIndicator);
+    
+    // Country name
+    const countryName = document.createElement('span');
+    countryName.textContent = exporter.name;
+    countryName.style.flexGrow = '1';
+    slot.appendChild(countryName);
+    
+    // Value
+    const exportValue = document.createElement('span');
+    exportValue.textContent = toHumanReadableFormat(exporter.value);
+    exportValue.style.fontFamily = 'monospace';
+    slot.appendChild(exportValue);
+    
+    correctSlotsContainer.appendChild(slot);
+  });
+  
+  container.appendChild(correctSlotsContainer);
+}
+
 function createClipboardButton(container, today, selectedCountries) {
   // Remove the previous submit button
   const oldSubmitBtn = container.querySelector('button');
@@ -59,7 +125,7 @@ function createClipboardButton(container, today, selectedCountries) {
     oldSubmitBtn.remove();
   }
   const clipboardBtn = document.createElement('button');
-  clipboardBtn.textContent = 'Copy Results';
+  clipboardBtn.textContent = 'Αντιγραφή Αποτελεσμάτων';
   clipboardBtn.style.padding = '8px 15px';
   clipboardBtn.style.backgroundColor = '#FFA500'; // Orange to match the design
   clipboardBtn.style.color = 'white';
@@ -83,6 +149,7 @@ function createClipboardButton(container, today, selectedCountries) {
   clipboardBtn.style.animation = 'flash 1.5s infinite';
   clipboardBtn.addEventListener('click', () => {
     // Prepare the clipboard text
+    const today = JSON.parse(localStorage.getItem('todayChallenge'));
     const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
       .filter(slot => slot.querySelector('.country-name').textContent)
       .map(slot => {
@@ -119,18 +186,18 @@ function createClipboardButton(container, today, selectedCountries) {
     // count the amount of green emojis
     const greenEmojis = emojiString.match(/🟢/g) || [];
     const emojiCount = greenEmojis.length;
-    const clipboardText = `${currentDate} - ${today.product_name} in ${today.year}
+    const clipboardText = `${currentDate} - ${today.product_name} το ${today.year}
 ${percentage}%
 ${emojiString} ${emojiCount}/5
-Play: ${window.location.href}
-My Result: ${shareableUrl}`;
+Παίξε στο: ${window.location.href}
+Τα αποτελέσματά μου: ${shareableUrl}`;
     // Copy to clipboard
     navigator.clipboard.writeText(clipboardText).then(() => {
       // Temporary style change to indicate successful copy
-      clipboardBtn.textContent = 'Copied!';
+      clipboardBtn.textContent = 'Αντιγράφηκαν!';
       clipboardBtn.style.backgroundColor = '#4CAF50';
       setTimeout(() => {
-        clipboardBtn.textContent = 'Copy Results';
+        clipboardBtn.textContent = 'Αντιγραφή Αποτελεσμάτων';
         clipboardBtn.style.backgroundColor = '#FFA500';
       }, 2000);
     }).catch(err => {
@@ -138,6 +205,9 @@ My Result: ${shareableUrl}`;
     });
   });
   container.appendChild(clipboardBtn);
+  
+  // Display correct answers
+  displayCorrectAnswers(container, today);
 }
 
 async function addUnsplashImage(container, query) {
@@ -206,7 +276,7 @@ function createInterface({today, country_names}) {
   addUnsplashImage(container, today.product_name); // Fetch and insert the image
   
   const heading = document.createElement('h2');
-  heading.textContent = `Today's Challenge: ${today.product_name} in ${today.year}`;
+  heading.textContent = `Σημερινό πικ \"${today.product_name}\" το ${today.year}`;
   container.appendChild(heading);
   
   // If viewing a shared result, show that info
@@ -221,7 +291,7 @@ function createInterface({today, country_names}) {
   }
   
   const description = document.createElement('p');
-  description.textContent = `Select the 5 biggest exporters in this category in ${today.year}`;
+  description.textContent = `Διάλεξε ποιοί ήταν οι τοπ 5 εξαγωγείς της κατηγορίας το ${today.year}`;
   container.appendChild(description);
   
   const slotsContainer = document.createElement('div');
@@ -265,7 +335,7 @@ function createInterface({today, country_names}) {
   
   const searchInput = document.createElement('input');
   searchInput.type = 'text';
-  searchInput.placeholder = 'Search Country...';
+  searchInput.placeholder = 'Αναζήτηση Χώρας...';
   searchInput.style.width = '100%';
   searchInput.style.padding = '8px';
   searchInput.style.boxSizing = 'border-box';
@@ -292,7 +362,7 @@ function createInterface({today, country_names}) {
   container.appendChild(searchContainer);
   
   const submitBtn = document.createElement('button');
-  submitBtn.textContent = 'Add Country';
+  submitBtn.textContent = 'Επιλογή Χώρας';
   submitBtn.style.padding = '8px 15px';
   submitBtn.style.backgroundColor = '#4CAF50';
   submitBtn.style.color = 'white';
@@ -306,7 +376,7 @@ function createInterface({today, country_names}) {
   barGraphContainer.style.marginTop = '20px';
   
   const barGraphLabel = document.createElement('p');
-  barGraphLabel.textContent = 'Progress toward top 5 exporters:';
+  barGraphLabel.textContent = 'Πρόοδος για την μοιρασιά των πρώτων 5:';
   barGraphLabel.style.marginBottom = '5px';
   barGraphContainer.appendChild(barGraphLabel);
   
@@ -531,7 +601,7 @@ function createInterface({today, country_names}) {
     
     updateBarGraph(filledCountries);
     
-    // Create clipboard button
+    // Create clipboard button and show correct answers
     if (filledCountries.length === 5) {
       createClipboardButton(container, today, filledCountries.map(country => ({ name: country.country })));
     }
