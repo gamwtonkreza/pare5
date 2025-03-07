@@ -2,317 +2,546 @@
     "product_name": "Dairy machinery",
     "year": 1998,
     "sum_of_top_5": 222634.014,
+    "country_codes": {
+        "Afghanistan": 4,
+        "Albania": 8,
+        "Algeria": 12,
+        "American Samoa": 16,
+        "Andorra": 20,
+        "Angola": 24,
+        "Antigua and Barbuda": 28,
+        "Azerbaijan": 31,
+        "Argentina": 32,
+        "Australia": 36,
+        "Austria": 40,
+        "Bahamas": 44,
+        "Bahrain": 48,
+        "Bangladesh": 50,
+        "Armenia": 51,
+        "Barbados": 52,
+        "Belgium": 56,
+        "Belgium-Luxembourg": 58,
+        "Bermuda": 60,
+        "Bhutan": 64,
+        "Bolivia": 68,
+        "Bosnia and Herzegovina": 70,
+        "Botswana": 72,
+        "Brazil": 76,
+        "Belize": 84,
+        "British Indian Ocean Territory": 86,
+        "Solomon Islands": 90,
+        "British Virgin Islands": 92,
+        "Brunei": 96,
+        "Bulgaria": 100,
+        "Myanmar": 104,
+        "Burundi": 108,
+        "Belarus": 112,
+        "Cambodia": 116,
+        "Cameroon": 120,
+        "Canada": 124,
+        "Cape Verde": 132,
+        "Cayman Islands": 136,
+        "Central African Republic": 140,
+        "Sri Lanka": 144,
+        "Chad": 148,
+        "Chile": 152,
+        "China": 156,
+        "Christmas Island": 162,
+        "Cocos Islands": 166,
+        "Colombia": 170,
+        "Comoros": 174,
+        "Mayotte": 175,
+        "Congo": 178,
+        "Democratic Republic of the Congo": 180,
+        "Cook Islands": 184,
+        "Costa Rica": 188,
+        "Croatia": 191,
+        "Cuba": 192,
+        "Cyprus": 196,
+        "Czech Republic": 203,
+        "Benin": 204,
+        "Denmark": 208,
+        "Dominica": 212,
+        "Dominican Republic": 214,
+        "Ecuador": 218,
+        "El Salvador": 222,
+        "Equatorial Guinea": 226,
+        "Ethiopia": 231,
+        "Eritrea": 232,
+        "Estonia": 233,
+        "Falkland Islands": 238,
+        "Fiji": 242,
+        "Finland": 246,
+        "France": 251,
+        "French Polynesia": 258,
+        "French Southern Antarctic Territories": 260,
+        "Djibouti": 262,
+        "Gabon": 266,
+        "Georgia": 268,
+        "Gambia": 270,
+        "Palestine": 275,
+        "Germany": 276,
+        "Ghana": 288,
+        "Gibraltar": 292,
+        "Kiribati": 296,
+        "Greece": 300,
+        "Greenland": 304,
+        "Grenada": 308,
+        "Guam": 316,
+        "Guatemala": 320,
+        "Guinea": 324,
+        "Guyana": 328,
+        "Haiti": 332,
+        "Honduras": 340,
+        "Hong Kong": 344,
+        "Hungary": 348,
+        "Iceland": 352,
+        "Indonesia": 360,
+        "Iran": 364,
+        "Iraq": 368,
+        "Ireland": 372,
+        "Israel": 376,
+        "Italy": 380,
+        "Ivory Coast": 384,
+        "Jamaica": 388,
+        "Japan": 392,
+        "Kazakhstan": 398,
+        "Jordan": 400,
+        "Kenya": 404,
+        "North Korea": 408,
+        "South Korea": 410,
+        "Kuwait": 414,
+        "Kyrgyzstan": 417,
+        "Laos": 418,
+        "Lebanon": 422,
+        "Lesotho": 426,
+        "Latvia": 428,
+        "Liberia": 430,
+        "Libya": 434,
+        "Lithuania": 440,
+        "Luxembourg": 442,
+        "Macau": 446,
+        "Madagascar": 450,
+        "Malawi": 454,
+        "Malaysia": 458,
+        "Maldives": 462,
+        "Mali": 466,
+        "Malta": 470,
+        "Mauritania": 478,
+        "Mauritius": 480,
+        "Mexico": 484,
+        "Other Asia, nes": 490,
+        "Mongolia": 496,
+        "Moldova": 498,
+        "Montserrat": 500,
+        "Morocco": 504,
+        "Mozambique": 508,
+        "Oman": 512,
+        "Namibia": 516,
+        "Nauru": 520,
+        "Nepal": 524,
+        "Netherlands": 528,
+        "Netherlands Antilles": 530,
+        "Aruba": 533,
+        "New Caledonia": 540,
+        "Vanuatu": 548,
+        "New Zealand": 554,
+        "Nicaragua": 558,
+        "Niger": 562,
+        "Nigeria": 566,
+        "Niue": 570,
+        "Norfolk Island": 574,
+        "Norway": 579,
+        "Northern Mariana Islands": 580,
+        "Micronesia": 583,
+        "Marshall Islands": 584,
+        "Palau": 585,
+        "Pakistan": 586,
+        "Panama": 591,
+        "Papua New Guinea": 598,
+        "Paraguay": 600,
+        "Peru": 604,
+        "Philippines": 608,
+        "Pitcairn": 612,
+        "Poland": 616,
+        "Portugal": 620,
+        "Guinea-Bissau": 624,
+        "East Timor": 626,
+        "Qatar": 634,
+        "Romania": 642,
+        "Russia": 643,
+        "Rwanda": 646,
+        "Saint Barth\u00e9lemy": 652,
+        "Saint Helena": 654,
+        "Saint Kitts and Nevis": 659,
+        "Anguilla": 660,
+        "Saint Lucia": 662,
+        "Saint Pierre and Miquelon": 666,
+        "Saint Vincent and the Grenadines": 670,
+        "San Marino": 674,
+        "Sao Tome and Principe": 678,
+        "Saudi Arabia": 682,
+        "Senegal": 686,
+        "Seychelles": 690,
+        "Sierra Leone": 694,
+        "Europe EFTA, nes": 697,
+        "India": 699,
+        "Singapore": 702,
+        "Slovakia": 703,
+        "Vietnam": 704,
+        "Slovenia": 705,
+        "Somalia": 706,
+        "South Africa": 710,
+        "Southern African Customs Union": 711,
+        "Zimbabwe": 716,
+        "Spain": 724,
+        "Sudan": 736,
+        "Suriname": 740,
+        "Swaziland": 748,
+        "Sweden": 752,
+        "Switzerland": 757,
+        "Syria": 760,
+        "Tajikistan": 762,
+        "Thailand": 764,
+        "Togo": 768,
+        "Tokelau": 772,
+        "Tonga": 776,
+        "Trinidad and Tobago": 780,
+        "United Arab Emirates": 784,
+        "Tunisia": 788,
+        "Turkey": 792,
+        "Turkmenistan": 795,
+        "Turks and Caicos Islands": 796,
+        "Tuvalu": 798,
+        "Uganda": 800,
+        "Ukraine": 804,
+        "Macedonia": 807,
+        "Egypt": 818,
+        "United Kingdom": 826,
+        "Tanzania": 834,
+        "USA": 842,
+        "US Misc. Pacific Islands": 849,
+        "Burkina Faso": 854,
+        "Uruguay": 858,
+        "Uzbekistan": 860,
+        "Venezuela": 862,
+        "Wallis and Futuna": 876,
+        "Samoa": 882,
+        "Yemen": 887,
+        "Serbia and Montenegro": 891,
+        "Zambia": 894
+    },
     "exporters": [
         {
-            "name": "Germany",
+            "country_code": 276,
             "value": 59944.516
         },
         {
-            "name": "Sweden",
+            "country_code": 752,
             "value": 47242.522
         },
         {
-            "name": "France",
+            "country_code": 251,
             "value": 46373.574
         },
         {
-            "name": "Denmark",
+            "country_code": 208,
             "value": 41440.758
         },
         {
-            "name": "USA",
+            "country_code": 842,
             "value": 27632.644
         },
         {
-            "name": "United Kingdom",
+            "country_code": 826,
             "value": 27496.219000000005
         },
         {
-            "name": "Italy",
+            "country_code": 380,
             "value": 23056.712
         },
         {
-            "name": "Netherlands",
+            "country_code": 528,
             "value": 21317.857
         },
         {
-            "name": "Switzerland",
+            "country_code": 757,
             "value": 8103.27
         },
         {
-            "name": "Finland",
+            "country_code": 246,
             "value": 5599.96
         },
         {
-            "name": "New Zealand",
+            "country_code": 554,
             "value": 5416.3
         },
         {
-            "name": "Austria",
+            "country_code": 40,
             "value": 5287.796
         },
         {
-            "name": "Belgium-Luxembourg (...1998)",
+            "country_code": 58,
             "value": 5224.076
         },
         {
-            "name": "India",
+            "country_code": 699,
             "value": 4555.504
         },
         {
-            "name": "Spain",
+            "country_code": 724,
             "value": 4174.438
         },
         {
-            "name": "Japan",
+            "country_code": 392,
             "value": 3471.948
         },
         {
-            "name": "Portugal",
+            "country_code": 620,
             "value": 3209.3900000000003
         },
         {
-            "name": "Poland",
+            "country_code": 616,
             "value": 2917.729
         },
         {
-            "name": "Israel",
+            "country_code": 376,
             "value": 2599.129
         },
         {
-            "name": "Australia",
+            "country_code": 36,
             "value": 2211.6800000000003
         },
         {
-            "name": "Ireland",
+            "country_code": 372,
             "value": 2148.853
         },
         {
-            "name": "Russian Federation",
+            "country_code": 643,
             "value": 1642.427
         },
         {
-            "name": "Argentina",
+            "country_code": 32,
             "value": 1504.067
         },
         {
-            "name": "United Arab Emirates",
+            "country_code": 784,
             "value": 1468.168
         },
         {
-            "name": "Southern African Customs Union (...1999)",
+            "country_code": 711,
             "value": 1380.749
         },
         {
-            "name": "Czechia",
+            "country_code": 203,
             "value": 1324.706
         },
         {
-            "name": "Lithuania",
+            "country_code": 440,
             "value": 1265.483
         },
         {
-            "name": "T\u00c3\u00bcrkiye",
+            "country_code": 792,
             "value": 1207.667
         },
         {
-            "name": "Bulgaria",
+            "country_code": 100,
             "value": 935.312
         },
         {
-            "name": "Indonesia",
+            "country_code": 360,
             "value": 919.454
         },
         {
-            "name": "Estonia",
+            "country_code": 233,
             "value": 821.4939999999999
         },
         {
-            "name": "Hungary",
+            "country_code": 348,
             "value": 821.049
         },
         {
-            "name": "Thailand",
+            "country_code": 764,
             "value": 798.899
         },
         {
-            "name": "Brazil",
+            "country_code": 76,
             "value": 713.4449999999999
         },
         {
-            "name": "Norway",
+            "country_code": 579,
             "value": 684.875
         },
         {
-            "name": "Ukraine",
+            "country_code": 804,
             "value": 678.297
         },
         {
-            "name": "Canada",
+            "country_code": 124,
             "value": 632.96
         },
         {
-            "name": "Slovakia",
+            "country_code": 703,
             "value": 577.149
         },
         {
-            "name": "Chile",
+            "country_code": 152,
             "value": 457.523
         },
         {
-            "name": "Singapore",
+            "country_code": 702,
             "value": 444.19
         },
         {
-            "name": "China",
+            "country_code": 156,
             "value": 407.78
         },
         {
-            "name": "Kenya",
+            "country_code": 404,
             "value": 281.88
         },
         {
-            "name": "Belarus",
+            "country_code": 112,
             "value": 269.40200000000004
         },
         {
-            "name": "Rep. of Korea",
+            "country_code": 410,
             "value": 163.177
         },
         {
-            "name": "Slovenia",
+            "country_code": 705,
             "value": 139.477
         },
         {
-            "name": "Greece",
+            "country_code": 300,
             "value": 111.736
         },
         {
-            "name": "Croatia",
+            "country_code": 191,
             "value": 100.337
         },
         {
-            "name": "Peru",
+            "country_code": 604,
             "value": 73.0
         },
         {
-            "name": "Mexico",
+            "country_code": 484,
             "value": 71.982
         },
         {
-            "name": "Kazakhstan",
+            "country_code": 398,
             "value": 68.164
         },
         {
-            "name": "China, Hong Kong SAR",
+            "country_code": 344,
             "value": 67.719
         },
         {
-            "name": "Panama",
+            "country_code": 591,
             "value": 58.105
         },
         {
-            "name": "Romania",
+            "country_code": 642,
             "value": 55.123000000000005
         },
         {
-            "name": "Lebanon",
+            "country_code": 422,
             "value": 49.63
         },
         {
-            "name": "Netherlands Antilles (...2010)",
+            "country_code": 530,
             "value": 40.0
         },
         {
-            "name": "Pakistan",
+            "country_code": 586,
             "value": 37.976
         },
         {
-            "name": "Jamaica",
+            "country_code": 388,
             "value": 26.49
         },
         {
-            "name": "US Misc. Pacific Isds",
+            "country_code": 849,
             "value": 25.75
         },
         {
-            "name": "Philippines",
+            "country_code": 608,
             "value": 21.942
         },
         {
-            "name": "Latvia",
+            "country_code": 428,
             "value": 21.38
         },
         {
-            "name": "Uruguay",
+            "country_code": 858,
             "value": 19.585
         },
         {
-            "name": "Serbia and Montenegro (...2005)",
+            "country_code": 891,
             "value": 18.573
         },
         {
-            "name": "Bahamas",
+            "country_code": 44,
             "value": 15.945
         },
         {
-            "name": "Malaysia",
+            "country_code": 458,
             "value": 14.571
         },
         {
-            "name": "Egypt",
+            "country_code": 818,
             "value": 12.0
         },
         {
-            "name": "Costa Rica",
+            "country_code": 188,
             "value": 11.903
         },
         {
-            "name": "North Macedonia",
+            "country_code": 807,
             "value": 8.114
         },
         {
-            "name": "Ecuador",
+            "country_code": 218,
             "value": 8.0
         },
         {
-            "name": "Iceland",
+            "country_code": 352,
             "value": 7.0
         },
         {
-            "name": "Venezuela",
+            "country_code": 862,
             "value": 5.416
         },
         {
-            "name": "El Salvador",
+            "country_code": 222,
             "value": 4.4670000000000005
         },
         {
-            "name": "Armenia",
+            "country_code": 51,
             "value": 4.113
         },
         {
-            "name": "Guatemala",
+            "country_code": 320,
             "value": 2.719
         },
         {
-            "name": "China, Macao SAR",
+            "country_code": 446,
             "value": 1.578
         },
         {
-            "name": "Ghana",
+            "country_code": 288,
             "value": 1.125
         },
         {
-            "name": "Colombia",
+            "country_code": 170,
             "value": 1.0
         },
         {
-            "name": "Other Asia, nes",
+            "country_code": 490,
             "value": 0.801
         },
         {
-            "name": "United Rep. of Tanzania",
+            "country_code": 834,
             "value": 0.678
         }
     ]

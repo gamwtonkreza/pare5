@@ -276,7 +276,7 @@ function createInterface({today, country_names}) {
   addUnsplashImage(container, today.product_name); // Fetch and insert the image
   
   const heading = document.createElement('h2');
-  heading.textContent = `Σημερινό πικ \"${today.product_name}\" το ${today.year}`;
+  heading.textContent = `Σημερινό πικ: ${today.product_name} το ${today.year}`;
   container.appendChild(heading);
   
   // If viewing a shared result, show that info
@@ -523,6 +523,7 @@ function createInterface({today, country_names}) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
+        valueSpan.style.fontSize = '20px';
         
         emptySlot.style.backgroundColor = getCountryColor(rank, value);
         
