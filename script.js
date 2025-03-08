@@ -31,7 +31,7 @@ function getCountryColor(rank, countryValue) {
   return '#FF6B6B'; // Red for zero value
 }
 
-function generateShareableUrl(today, selectedCountries) {
+async function generateShareableUrl(today, selectedCountries) {
   try {
     // Create a data object with essential information
     const data = {
@@ -45,13 +45,26 @@ function generateShareableUrl(today, selectedCountries) {
     
     // Create URL with data in hash fragment
     const baseUrl = window.location.href.split('#')[0];
-    return `${baseUrl}#results=${encodedData}`;
+    const fullUrl = `${baseUrl}#results=${encodedData}`;
+    
+    // Use TinyURL API to shorten the URL
+    const tinyUrlApi = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(fullUrl)}`;
+    const response = await fetch(tinyUrlApi);
+    
+    if (response.ok) {
+      // Get the shortened URL from the response
+      const shortUrl = await response.text();
+      return shortUrl;
+    } else {
+      console.error("Error from TinyURL API:", response.statusText);
+      return fullUrl; // Fall back to the original URL if shortening fails
+    }
   } catch (e) {
     console.error("Error generating URL:", e);
     return "invalid url";
   }
-}
-
+}        
+        
 function getCountryNameByCode(today, countryCode) {
   // Find country name by code in the country_codes dictionary
   for (const [name, code] of Object.entries(today.country_codes)) {
@@ -158,7 +171,7 @@ function createClipboardButton(container, today, selectedCountries) {
   document.head.appendChild(styleSheet);
   
   clipboardBtn.style.animation = 'flash 1.5s infinite';
-  clipboardBtn.addEventListener('click', () => {
+  clipboardBtn.addEventListener('click', async () => {
     // Prepare the clipboard text
     const today = JSON.parse(localStorage.getItem('todayChallenge'));
     const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
@@ -194,7 +207,7 @@ function createClipboardButton(container, today, selectedCountries) {
     const emojiString = selectedCountries.map(country => country.emoji).join(' ');
     
     // Generate shareable URL
-    const shareableUrl = generateShareableUrl(today, selectedCountries);
+    const shareableUrl = await generateShareableUrl(today, selectedCountries);
     
     // Construct clipboard text
     // count the amount of green emojis
