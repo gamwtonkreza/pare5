@@ -1,7 +1,7 @@
 {
-    "product_name": "Snow-ski equipment",
-    "year": 1995,
-    "sum_of_top_5": 110156.638,
+    "product_name": "Cash registers",
+    "year": 1996,
+    "sum_of_top_5": 614432.012,
     "country_codes": {
         "Afghanistan": 4,
         "Albania": 8,
@@ -233,272 +233,352 @@
     },
     "exporters": [
         {
-            "country_code": 40,
-            "value": 35355.936
-        },
-        {
-            "country_code": 380,
-            "value": 26716.102
-        },
-        {
-            "country_code": 842,
-            "value": 18786.828
-        },
-        {
-            "country_code": 276,
-            "value": 18585.717
-        },
-        {
-            "country_code": 251,
-            "value": 10712.055
-        },
-        {
-            "country_code": 757,
-            "value": 8458.75
-        },
-        {
-            "country_code": 490,
-            "value": 6156.597
-        },
-        {
-            "country_code": 203,
-            "value": 6116.582
-        },
-        {
-            "country_code": 246,
-            "value": 4421.555
-        },
-        {
-            "country_code": 579,
-            "value": 4395.293
-        },
-        {
-            "country_code": 156,
-            "value": 2958.195
-        },
-        {
-            "country_code": 124,
-            "value": 2676.353
-        },
-        {
-            "country_code": 58,
-            "value": 2415.832
-        },
-        {
-            "country_code": 360,
-            "value": 2040.911
-        },
-        {
-            "country_code": 724,
-            "value": 1583.168
-        },
-        {
-            "country_code": 826,
-            "value": 1190.88
-        },
-        {
-            "country_code": 528,
-            "value": 1072.873
-        },
-        {
-            "country_code": 410,
-            "value": 937.003
-        },
-        {
-            "country_code": 752,
-            "value": 885.664
-        },
-        {
-            "country_code": 233,
-            "value": 568.678
-        },
-        {
             "country_code": 392,
-            "value": 476.45
-        },
-        {
-            "country_code": 616,
-            "value": 366.319
-        },
-        {
-            "country_code": 705,
-            "value": 345.83
-        },
-        {
-            "country_code": 344,
-            "value": 334.77
-        },
-        {
-            "country_code": 191,
-            "value": 297.802
-        },
-        {
-            "country_code": 608,
-            "value": 292.936
-        },
-        {
-            "country_code": 764,
-            "value": 254.515
-        },
-        {
-            "country_code": 642,
-            "value": 241.03500000000005
-        },
-        {
-            "country_code": 703,
-            "value": 235.259
-        },
-        {
-            "country_code": 788,
-            "value": 216.625
-        },
-        {
-            "country_code": 36,
-            "value": 197.144
-        },
-        {
-            "country_code": 620,
-            "value": 164.556
-        },
-        {
-            "country_code": 704,
-            "value": 164.278
-        },
-        {
-            "country_code": 484,
-            "value": 137.808
-        },
-        {
-            "country_code": 643,
-            "value": 116.494
-        },
-        {
-            "country_code": 458,
-            "value": 90.296
-        },
-        {
-            "country_code": 300,
-            "value": 83.396
-        },
-        {
-            "country_code": 711,
-            "value": 60.239
-        },
-        {
-            "country_code": 440,
-            "value": 44.53
-        },
-        {
-            "country_code": 591,
-            "value": 43.227
-        },
-        {
-            "country_code": 348,
-            "value": 41.503
-        },
-        {
-            "country_code": 818,
-            "value": 39.26
-        },
-        {
-            "country_code": 554,
-            "value": 32.42
-        },
-        {
-            "country_code": 208,
-            "value": 30.269
-        },
-        {
-            "country_code": 784,
-            "value": 29.211
-        },
-        {
-            "country_code": 699,
-            "value": 28.953
-        },
-        {
-            "country_code": 682,
-            "value": 25.518
+            "value": 189325.245
         },
         {
             "country_code": 702,
-            "value": 22.245
+            "value": 141101.11
+        },
+        {
+            "country_code": 490,
+            "value": 105530.299
+        },
+        {
+            "country_code": 842,
+            "value": 89508.09
+        },
+        {
+            "country_code": 410,
+            "value": 88967.268
+        },
+        {
+            "country_code": 156,
+            "value": 80319.085
+        },
+        {
+            "country_code": 724,
+            "value": 55054.854
+        },
+        {
+            "country_code": 458,
+            "value": 54355.404
+        },
+        {
+            "country_code": 276,
+            "value": 43640.731
+        },
+        {
+            "country_code": 826,
+            "value": 28258.949
+        },
+        {
+            "country_code": 380,
+            "value": 24178.777
+        },
+        {
+            "country_code": 251,
+            "value": 17548.115
+        },
+        {
+            "country_code": 344,
+            "value": 17350.541999999998
+        },
+        {
+            "country_code": 124,
+            "value": 13484.919999999998
         },
         {
             "country_code": 76,
-            "value": 20.0
+            "value": 11430.474
         },
         {
-            "country_code": 586,
-            "value": 18.406
+            "country_code": 58,
+            "value": 6361.051
+        },
+        {
+            "country_code": 100,
+            "value": 5467.38
+        },
+        {
+            "country_code": 752,
+            "value": 4622.816
+        },
+        {
+            "country_code": 643,
+            "value": 3983.581
+        },
+        {
+            "country_code": 376,
+            "value": 2928.8820000000005
+        },
+        {
+            "country_code": 246,
+            "value": 2916.187
+        },
+        {
+            "country_code": 528,
+            "value": 2723.757
         },
         {
             "country_code": 372,
-            "value": 16.310000000000002
+            "value": 2629.698
         },
         {
-            "country_code": 20,
-            "value": 12.389
+            "country_code": 208,
+            "value": 2410.587
+        },
+        {
+            "country_code": 40,
+            "value": 2356.303
+        },
+        {
+            "country_code": 36,
+            "value": 1766.8680000000002
+        },
+        {
+            "country_code": 360,
+            "value": 1740.75
+        },
+        {
+            "country_code": 792,
+            "value": 1668.058
         },
         {
             "country_code": 32,
-            "value": 11.071
+            "value": 1634.848
         },
         {
-            "country_code": 152,
-            "value": 9.777
+            "country_code": 440,
+            "value": 1312.142
         },
         {
-            "country_code": 428,
-            "value": 6.2010000000000005
+            "country_code": 757,
+            "value": 1111.858
         },
         {
-            "country_code": 340,
-            "value": 4.626
+            "country_code": 591,
+            "value": 982.981
         },
         {
-            "country_code": 858,
-            "value": 3.741
+            "country_code": 711,
+            "value": 818.345
         },
         {
-            "country_code": 558,
-            "value": 3.525
+            "country_code": 703,
+            "value": 801.72
         },
         {
-            "country_code": 480,
-            "value": 3.048
-        },
-        {
-            "country_code": 408,
-            "value": 2.605
-        },
-        {
-            "country_code": 112,
-            "value": 2.302
-        },
-        {
-            "country_code": 417,
-            "value": 1.799
-        },
-        {
-            "country_code": 270,
-            "value": 1.046
-        },
-        {
-            "country_code": 320,
-            "value": 0.906
+            "country_code": 554,
+            "value": 731.001
         },
         {
             "country_code": 470,
-            "value": 0.85
+            "value": 660.4419999999999
+        },
+        {
+            "country_code": 348,
+            "value": 647.385
+        },
+        {
+            "country_code": 804,
+            "value": 644.939
+        },
+        {
+            "country_code": 616,
+            "value": 476.935
+        },
+        {
+            "country_code": 620,
+            "value": 440.69
+        },
+        {
+            "country_code": 764,
+            "value": 414.755
+        },
+        {
+            "country_code": 579,
+            "value": 358.066
+        },
+        {
+            "country_code": 608,
+            "value": 354.83
+        },
+        {
+            "country_code": 408,
+            "value": 347.379
+        },
+        {
+            "country_code": 203,
+            "value": 295.461
+        },
+        {
+            "country_code": 300,
+            "value": 223.292
+        },
+        {
+            "country_code": 428,
+            "value": 181.683
+        },
+        {
+            "country_code": 484,
+            "value": 157.718
+        },
+        {
+            "country_code": 705,
+            "value": 123.30700000000002
+        },
+        {
+            "country_code": 191,
+            "value": 100.02
+        },
+        {
+            "country_code": 862,
+            "value": 99.498
+        },
+        {
+            "country_code": 466,
+            "value": 87.221
+        },
+        {
+            "country_code": 233,
+            "value": 71.429
+        },
+        {
+            "country_code": 152,
+            "value": 60.155
+        },
+        {
+            "country_code": 784,
+            "value": 41.982
+        },
+        {
+            "country_code": 340,
+            "value": 33.663
+        },
+        {
+            "country_code": 446,
+            "value": 31.547
+        },
+        {
+            "country_code": 188,
+            "value": 29.285
+        },
+        {
+            "country_code": 112,
+            "value": 28.308
+        },
+        {
+            "country_code": 498,
+            "value": 24.36
+        },
+        {
+            "country_code": 196,
+            "value": 21.746
+        },
+        {
+            "country_code": 682,
+            "value": 16.947
+        },
+        {
+            "country_code": 887,
+            "value": 15.45
+        },
+        {
+            "country_code": 352,
+            "value": 12.527
+        },
+        {
+            "country_code": 20,
+            "value": 12.221
+        },
+        {
+            "country_code": 404,
+            "value": 6.207
         },
         {
             "country_code": 364,
-            "value": 0.799
+            "value": 5.551
         },
         {
-            "country_code": 398,
-            "value": 0.699
+            "country_code": 140,
+            "value": 5.303
+        },
+        {
+            "country_code": 699,
+            "value": 5.194
+        },
+        {
+            "country_code": 422,
+            "value": 5.0
+        },
+        {
+            "country_code": 414,
+            "value": 4.784
+        },
+        {
+            "country_code": 258,
+            "value": 4.072
+        },
+        {
+            "country_code": 320,
+            "value": 3.492
+        },
+        {
+            "country_code": 450,
+            "value": 3.316
+        },
+        {
+            "country_code": 214,
+            "value": 3.029
+        },
+        {
+            "country_code": 891,
+            "value": 3.0
+        },
+        {
+            "country_code": 480,
+            "value": 2.517
+        },
+        {
+            "country_code": 308,
+            "value": 2.376
+        },
+        {
+            "country_code": 28,
+            "value": 2.372
+        },
+        {
+            "country_code": 704,
+            "value": 1.963
+        },
+        {
+            "country_code": 716,
+            "value": 1.955
+        },
+        {
+            "country_code": 242,
+            "value": 1.953
+        },
+        {
+            "country_code": 96,
+            "value": 1.69
+        },
+        {
+            "country_code": 530,
+            "value": 1.4209999999999998
+        },
+        {
+            "country_code": 894,
+            "value": 1.276
+        },
+        {
+            "country_code": 646,
+            "value": 1.037
+        },
+        {
+            "country_code": 780,
+            "value": 0.783
         }
     ]
 }
