@@ -244,12 +244,21 @@ while True:
 
     break
 
+# usa germany china country codes
+country_codes_filtered = get_countries_by_year(year)
+# remove usa germany china from country_codes
+country_codes_filtered.pop("USA", None)
+country_codes_filtered.pop("Germany", None)
+country_codes_filtered.pop("China", None)
+
+
+
 
 today_json = {
     "product_name": product_name,
     "year": year,
     "sum_of_top_5": sum_of_top_5,
-    "country_codes": get_countries_by_year(year),
+    "country_codes": country_codes_filtered,
     "exporters": [
         { "country_code": row.country_code, "value" : row.value }
         for row in e.itertuples()
