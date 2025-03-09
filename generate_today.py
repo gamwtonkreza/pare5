@@ -3,8 +3,13 @@ import pandas as pd
 import random
 import json
 
-# reroller
-reroller = 16
+# reroller file
+with open('reroller.txt', 'r') as f:
+    reroller = int(f.read())
+
+with open('reroller.txt', 'w') as f:
+    f.write(str(reroller + 1))
+    
 
 def get_countries_by_year(year):
     """
@@ -189,8 +194,8 @@ def today_id() -> int:
     return reroller*year*10000 + month*100 + day
 
 def acceptable_name(name: str) -> bool:
-    print(product_name)
-    return len(name) < 30
+    # print(product_name)
+    return "gun" in name.lower() or "war" in name.lower() or "millitar" in name.lower()
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
@@ -198,28 +203,14 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
-year = random.randint(1995, 2000)
-while True:
-    idx = random.randint(0, len(product_codes))
-    product_code, product_name = product_codes.iloc[idx]
-    if acceptable_name(product_name):
-        break
+year = random.randint(2010, 2023)
 
 # exports = pd.read_csv('CSV_DATA/exports.csv') 
 exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
 exports = exports_full[exports_full['year'] == year]
 country_codes = get_countries_by_year(year)
-# country_codes = pd.read_csv('CSV_DATA/country_codes.csv')
-# country_codes_json = {row.country_name:row.country_code
-#     for row in country_codes.itertuples()
-#     }
 
-# with open("country_names.json", 'w') as f:
-#     f.write(json.dumps(country_codes_json))
-
-exports = exports[exports['product_code'] == product_code].drop(columns=['product_code'])
-
-sum_of_top_5 = float(exports.sort_values(by='value')['value'][-5:].sum())
+# sum_of_top_5 = float(exports.sort_values(by='value')['value'][-5:].sum())
 
 # make df from country_codes
 country_codes = pd.DataFrame.from_dict(country_codes, orient='index', columns=['country_code']).reset_index()
@@ -227,7 +218,32 @@ country_codes.columns = ['country_name', 'country_code']
 
 e = exports.merge(country_codes, on='country_code')
 
-e.sort_values(by='value', inplace=True, ascending=False)
+
+product_codes = product_codes[product_codes["description"].str.contains("firearm", case=False)]
+print(product_codes)
+# product_codes
+
+# keep only ones with acceptable product names
+
+while True:
+    idx = random.randint(0, len(product_codes) - 1)
+    product_code, product_name = product_codes.iloc[idx]
+
+    current = e[e["product_code"] == product_code]
+
+    top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
+
+    if not {"USA", "China", "Germany"}.issubset(top5_countries):
+        continue
+
+    # remove USA Germany China from current
+    current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
+
+    e = current.sort_values(by='value', ascending=False)
+    sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
+
+    break
+
 
 today_json = {
     "product_name": product_name,
