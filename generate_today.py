@@ -248,12 +248,12 @@ while True:
 
     break
 
-# usa germany china country codes
+# # usa germany china country codes
 country_codes_filtered = get_countries_by_year(year)
-# remove usa germany china from country_codes
-country_codes_filtered.pop("USA", None)
-country_codes_filtered.pop("Germany", None)
-country_codes_filtered.pop("China", None)
+# # remove usa germany china from country_codes
+# country_codes_filtered.pop("USA", None)
+# country_codes_filtered.pop("Germany", None)
+# country_codes_filtered.pop("China", None)
 
 
 
