@@ -54,7 +54,7 @@ def get_countries_by_year(year):
         "Lebanon": 422, "Lesotho": 426, "Latvia": 428, "Liberia": 430, "Libya": 434, 
         "Lithuania": 440, "Luxembourg": 442, "Macau": 446, "Madagascar": 450, 
         "Malawi": 454, "Malaysia": 458, "Maldives": 462, "Mali": 466, "Malta": 470, 
-        "Mauritania": 478, "Mauritius": 480, "Mexico": 484, "Other Asia, nes": 490, 
+        "Mauritania": 478, "Mauritius": 480, "Mexico": 484, "Taiwan": 490, 
         "Mongolia": 496, "Moldova": 498, "Montenegro": 499, "Montserrat": 500, 
         "Morocco": 504, "Mozambique": 508, "Oman": 512, "Namibia": 516, "Nauru": 520, 
         "Nepal": 524, "Netherlands": 528, "Netherlands Antilles (...2010)": 530, 
