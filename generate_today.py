@@ -195,7 +195,7 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     # print(product_name)
-    return "gun" in name.lower() or "war" in name.lower() or "millitar" in name.lower()
+    return len(name) < 30
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
@@ -219,8 +219,7 @@ country_codes.columns = ['country_name', 'country_code']
 e = exports.merge(country_codes, on='country_code')
 
 
-product_codes = product_codes[product_codes["description"].str.contains("firearm", case=False)]
-print(product_codes)
+# product_codes = product_codes[product_codes["description"].str.contains("firearm", case=False)]
 # product_codes
 
 # keep only ones with acceptable product names
@@ -233,14 +232,19 @@ while True:
 
     top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
 
-    if not {"USA", "China", "Germany"}.issubset(top5_countries):
+    if not acceptable_name(product_name):
         continue
 
+    # if not {"USA", "China", "Germany"}.issubset(top5_countries):
+    #     continue
+
     # remove USA Germany China from current
-    current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
+    # current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
 
     e = current.sort_values(by='value', ascending=False)
     sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
+
+    print("Chose product:", product_name)
 
     break
 
