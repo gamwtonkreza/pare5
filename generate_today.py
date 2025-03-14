@@ -241,8 +241,14 @@ while True:
     # remove USA Germany China from current
     # current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
 
-    e = current.sort_values(by='value', ascending=False)
     sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
+
+    if sum_of_top_5 < 10_000:
+        continue
+
+    e = current.sort_values(by='value', ascending=False)
+
+    
 
     print("Chose product:", product_name)
 
