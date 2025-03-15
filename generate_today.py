@@ -246,6 +246,12 @@ while True:
     if sum_of_top_5 < 10_000:
         continue
 
+    # Ask user if they want to keep this product
+    print("Product:", product_name)
+    
+    if input("Keep? (y/n) ") == "n":
+        continue
+
     e = current.sort_values(by='value', ascending=False)
 
     
