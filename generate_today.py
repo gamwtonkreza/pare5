@@ -224,6 +224,8 @@ e = exports.merge(country_codes, on='country_code')
 
 # keep only ones with acceptable product names
 
+no_foniades_monday = True
+
 while True:
     idx = random.randint(0, len(product_codes) - 1)
     product_code, product_name = product_codes.iloc[idx]
@@ -235,11 +237,12 @@ while True:
     if not acceptable_name(product_name):
         continue
 
-    # if not {"USA", "China", "Germany"}.issubset(top5_countries):
-    #     continue
+    if no_foniades_monday:
+        if not {"USA", "China", "Germany"}.issubset(top5_countries):
+            continue
 
-    # remove USA Germany China from current
-    # current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
+        # remove USA Germany China from current
+        current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
 
     sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
 
@@ -263,12 +266,11 @@ while True:
 # # usa germany china country codes
 country_codes_filtered = get_countries_by_year(year)
 # # remove usa germany china from country_codes
-# country_codes_filtered.pop("USA", None)
-# country_codes_filtered.pop("Germany", None)
-# country_codes_filtered.pop("China", None)
 
-
-
+if no_foniades_monday:
+    country_codes_filtered.pop("USA", None)
+    country_codes_filtered.pop("Germany", None)
+    country_codes_filtered.pop("China", None)
 
 today_json = {
     "product_name": product_name,
