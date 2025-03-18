@@ -224,7 +224,7 @@ e = exports.merge(country_codes, on='country_code')
 
 # keep only ones with acceptable product names
 
-no_foniades_monday = True
+no_foniades_monday = False
 
 while True:
     idx = random.randint(0, len(product_codes) - 1)
