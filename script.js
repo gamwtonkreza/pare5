@@ -714,7 +714,7 @@ function createInterface({today}) {
 }
 
 function todayChallenge() {
-  return fetch('/today.json')
+  return fetch('/pare5/today.json')
     .then(response => response.json())
     .then(today => {
       // Ensure exporters have name property based on country_code
