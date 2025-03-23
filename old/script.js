@@ -31,13 +31,13 @@ function getCountryColor(rank, countryValue) {
   return '#FF6B6B'; // Red for zero value
 }
 
-function generateShareableUrl(today, selectedCountries) {
+async function generateShareableUrl(today, selectedCountries) {
   try {
     // Create a data object with essential information
     const data = {
       product: today.product_name,
       year: today.year,
-      countries: selectedCountries.map(country => country.name)
+      countries: selectedCountries.map(country => country.code) // Changed to store country codes
     };
     
     // Convert to base64
@@ -45,11 +45,34 @@ function generateShareableUrl(today, selectedCountries) {
     
     // Create URL with data in hash fragment
     const baseUrl = window.location.href.split('#')[0];
-    return `${baseUrl}#results=${encodedData}`;
+    const fullUrl = `${baseUrl}#results=${encodedData}`;
+    
+    // Use TinyURL API to shorten the URL
+    const tinyUrlApi = `https://tinyurl.com/api-create.php?url=${encodeURIComponent(fullUrl)}`;
+    const response = await fetch(tinyUrlApi);
+    
+    if (response.ok) {
+      // Get the shortened URL from the response
+      const shortUrl = await response.text();
+      return shortUrl;
+    } else {
+      console.error("Error from TinyURL API:", response.statusText);
+      return fullUrl; // Fall back to the original URL if shortening fails
+    }
   } catch (e) {
     console.error("Error generating URL:", e);
     return "invalid url";
   }
+}        
+        
+function getCountryNameByCode(today, countryCode) {
+  // Find country name by code in the country_codes dictionary
+  for (const [name, code] of Object.entries(today.country_codes)) {
+    if (code === countryCode) {
+      return name;
+    }
+  }
+  return null;
 }
 
 function displayCorrectAnswers(container, today) {
@@ -100,9 +123,10 @@ function displayCorrectAnswers(container, today) {
     rankIndicator.style.marginRight = '10px';
     slot.appendChild(rankIndicator);
     
-    // Country name
+    // Country name from country code
     const countryName = document.createElement('span');
-    countryName.textContent = exporter.name;
+    const countryNameStr = getCountryNameByCode(today, exporter.country_code);
+    countryName.textContent = countryNameStr || `Unknown (${exporter.country_code})`;
     countryName.style.flexGrow = '1';
     slot.appendChild(countryName);
     
@@ -147,7 +171,7 @@ function createClipboardButton(container, today, selectedCountries) {
   document.head.appendChild(styleSheet);
   
   clipboardBtn.style.animation = 'flash 1.5s infinite';
-  clipboardBtn.addEventListener('click', () => {
+  clipboardBtn.addEventListener('click', async () => {
     // Prepare the clipboard text
     const today = JSON.parse(localStorage.getItem('todayChallenge'));
     const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
@@ -162,7 +186,10 @@ function createClipboardButton(container, today, selectedCountries) {
         if (backgroundColor === 'rgb(255, 107, 107)') emoji = '🔴'; // Red
         if (backgroundColor === 'rgb(255, 183, 77)') emoji = '🟡'; // Orange
         
-        return { name: countryName, emoji };
+        // Get country code from name
+        const countryCode = getCountryCodeByName(today, countryName);
+        
+        return { name: countryName, code: countryCode, emoji };
       });
     // Get current date
     const currentDate = new Date().toLocaleDateString('en-US');
@@ -170,7 +197,7 @@ function createClipboardButton(container, today, selectedCountries) {
     // Calculate percentage
     const chosenExportValue = selectedCountries.reduce(
       (acc, item) => {
-        const countryExporter = today.exporters.find(c => c.name === item.name);
+        const countryExporter = today.exporters.find(c => c.country_code === item.code);
         return acc + (countryExporter ? parseInt(countryExporter.value) : 0);
       }, 0
     );
@@ -180,7 +207,7 @@ function createClipboardButton(container, today, selectedCountries) {
     const emojiString = selectedCountries.map(country => country.emoji).join(' ');
     
     // Generate shareable URL
-    const shareableUrl = generateShareableUrl(today, selectedCountries);
+    const shareableUrl = await generateShareableUrl(today, selectedCountries);
     
     // Construct clipboard text
     // count the amount of green emojis
@@ -241,13 +268,21 @@ async function addUnsplashImage(container, query) {
   }
 }
 
-function createInterface({today, country_names}) {
+// Helper function to get country code by name
+function getCountryCodeByName(today, countryName) {
+  return today.country_codes[countryName];
+}
+
+function createInterface({today}) {
   const container = document.createElement('div');
   container.className = 'challenge-container';
   container.style.padding = '15px';
   container.style.fontFamily = 'Arial, sans-serif';
   container.style.maxWidth = '500px';
   container.style.margin = '0 auto';
+  
+  // Get all country names from the country_codes object
+  const country_names = Object.keys(today.country_codes);
   
   // Check if there's a shared result in the URL
   const hashParams = window.location.hash.substring(1).split('&');
@@ -390,6 +425,7 @@ function createInterface({today, country_names}) {
   document.body.appendChild(container);
   
   let selectedCountry = null;
+  let selectedCountryCode = null;
   
   function updateDropdown() {
     dropdown.innerHTML = '';
@@ -437,6 +473,7 @@ function createInterface({today, country_names}) {
         
         item.addEventListener('click', () => {
           selectedCountry = country;
+          selectedCountryCode = today.country_codes[country];
           searchInput.value = country;
           dropdown.style.display = 'none';
           submitBtn.disabled = false;
@@ -501,12 +538,13 @@ function createInterface({today, country_names}) {
     updateDropdown();
     dropdown.style.display = 'block';
     selectedCountry = null;
+    selectedCountryCode = null;
     submitBtn.disabled = true;
   });
   
   submitBtn.addEventListener('click', () => {
-    if (selectedCountry) {
-      const countryExporter = today.exporters.find(c => c.name === selectedCountry);
+    if (selectedCountry && selectedCountryCode) {
+      const countryExporter = today.exporters.find(c => c.country_code === selectedCountryCode);
       const value = countryExporter?.value || 0;
       
       const emptySlot = Array.from(slotsContainer.querySelectorAll('.country-slot'))
@@ -515,6 +553,7 @@ function createInterface({today, country_names}) {
       if (emptySlot) {
         const nameSpan = emptySlot.querySelector('.country-name');
         nameSpan.textContent = selectedCountry;
+        nameSpan.dataset.countryCode = selectedCountryCode; // Store country code in dataset
         
         const valueSpan = emptySlot.querySelector('.export-value');
         const exportersValuesArray = today.exporters.map(exporter => exporter.value);
@@ -523,7 +562,6 @@ function createInterface({today, country_names}) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
-        valueSpan.style.fontSize = '20px';
         
         emptySlot.style.backgroundColor = getCountryColor(rank, value);
         
@@ -531,9 +569,11 @@ function createInterface({today, country_names}) {
           .filter(slot => slot.querySelector('.country-name').textContent)
           .map(slot => {
             const countryName = slot.querySelector('.country-name').textContent;
-            const countryExporter = today.exporters.find(c => c.name === countryName);
+            const countryCode = slot.querySelector('.country-name').dataset.countryCode;
+            const countryExporter = today.exporters.find(c => c.country_code === parseInt(countryCode));
             return {
               country: countryName,
+              code: parseInt(countryCode),
               value: countryExporter ? countryExporter.value : 0
             };
           });
@@ -542,6 +582,7 @@ function createInterface({today, country_names}) {
         
         searchInput.value = '';
         selectedCountry = null;
+        selectedCountryCode = null;
         submitBtn.disabled = true;
         
         if (filledCountries.length >= 5) {
@@ -570,13 +611,15 @@ function createInterface({today, country_names}) {
     const slots = Array.from(slotsContainer.querySelectorAll('.country-slot'));
     const countriesToFill = sharedResult.countries.slice(0, 5); // Limit to 5 countries
     
-    countriesToFill.forEach((countryName, index) => {
+    countriesToFill.forEach((countryCode, index) => {
       if (index < slots.length) {
         const slot = slots[index];
         const nameSpan = slot.querySelector('.country-name');
-        nameSpan.textContent = countryName;
+        const countryName = getCountryNameByCode(today, parseInt(countryCode));
+        nameSpan.textContent = countryName || `Unknown (${countryCode})`;
+        nameSpan.dataset.countryCode = countryCode;
         
-        const countryExporter = today.exporters.find(c => c.name === countryName);
+        const countryExporter = today.exporters.find(c => c.country_code === parseInt(countryCode));
         const value = countryExporter?.value || 0;
         
         const valueSpan = slot.querySelector('.export-value');
@@ -592,10 +635,13 @@ function createInterface({today, country_names}) {
     });
     
     // Update bar graph
-    const filledCountries = countriesToFill.map(countryName => {
-      const countryExporter = today.exporters.find(c => c.name === countryName);
+    const filledCountries = countriesToFill.map(countryCode => {
+      const parsedCode = parseInt(countryCode);
+      const countryName = getCountryNameByCode(today, parsedCode);
+      const countryExporter = today.exporters.find(c => c.country_code === parsedCode);
       return {
-        country: countryName,
+        country: countryName || `Unknown (${countryCode})`,
+        code: parsedCode,
         value: countryExporter ? countryExporter.value : 0
       };
     });
@@ -604,7 +650,10 @@ function createInterface({today, country_names}) {
     
     // Create clipboard button and show correct answers
     if (filledCountries.length === 5) {
-      createClipboardButton(container, today, filledCountries.map(country => ({ name: country.country })));
+      createClipboardButton(container, today, filledCountries.map(country => ({ 
+        name: country.country, 
+        code: country.code 
+      })));
     }
   } else {
     updateBarGraph([]);
@@ -612,14 +661,19 @@ function createInterface({today, country_names}) {
 }
 
 function todayChallenge() {
-  return Promise.all([
-    fetch('/pare5/today.json').then(response => response.json()),
-    fetch('/pare5/country_names.json').then(response => response.json())
-  ]).then(([today, country_names]) => {
-    // Store in localStorage for clipboard access
-    localStorage.setItem('todayChallenge', JSON.stringify(today));
-    return { today, country_names };
-  })
+  return fetch('/pare5/today.json')
+    .then(response => response.json())
+    .then(today => {
+      // Ensure exporters have name property based on country_code
+      today.exporters.forEach(exporter => {
+        // Make sure country_code is an integer
+        exporter.country_code = parseInt(exporter.country_code);
+      });
+      
+      // Store in localStorage for clipboard access
+      localStorage.setItem('todayChallenge', JSON.stringify(today));
+      return { today };
+    });
 }
 
 let have_started = false;

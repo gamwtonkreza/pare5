@@ -75,6 +75,52 @@ function getCountryNameByCode(today, countryCode) {
   return null;
 }
 
+// Function to generate the results text - used by both copy and display functions
+async function generateResultsText(today, selectedCountries) {
+  // Get current date
+  const currentDate = new Date().toLocaleDateString('en-US');
+  
+  // Calculate percentage
+  const chosenExportValue = selectedCountries.reduce(
+    (acc, item) => {
+      const countryExporter = today.exporters.find(c => c.country_code === item.code);
+      return acc + (countryExporter ? parseInt(countryExporter.value) : 0);
+    }, 0
+  );
+  const percentage = (chosenExportValue / today.sum_of_top_5 * 100).toFixed(2);
+  
+  // Determine emojis for results
+  const emojiString = selectedCountries.map(country => {
+    const countryExporter = today.exporters.find(c => c.country_code === country.code);
+    let emoji = '⚪'; // Default neutral emoji
+    if (countryExporter) {
+      const rank = today.exporters
+        .sort((a, b) => parseInt(b.value) - parseInt(a.value))
+        .findIndex(e => e.country_code === country.code) + 1;
+      if (rank <= 5) emoji = '🟢'; // Green for top 5
+      else if (parseInt(countryExporter.value) > 0) emoji = '🟡'; // Yellow for non-zero
+      else emoji = '🔴'; // Red for zero
+    } else {
+      emoji = '🔴'; // Red for not found
+    }
+    return emoji;
+  }).join(' ');
+  
+  // Count green emojis
+  const greenEmojis = emojiString.match(/🟢/g) || [];
+  const emojiCount = greenEmojis.length;
+  
+  // Generate shareable URL
+  const shareableUrl = await generateShareableUrl(today, selectedCountries);
+  
+  // Construct results text
+  return `${currentDate} - ${today.product_name} το ${today.year}
+${percentage}%
+${emojiString} ${emojiCount}/5
+Παίξε στο: ${window.location.href}
+Τα αποτελέσματά μου: ${shareableUrl}`;
+}
+
 function displayCorrectAnswers(container, today) {
   // Create header for correct answers section
   const correctHeader = document.createElement('h3');
@@ -148,6 +194,8 @@ function createClipboardButton(container, today, selectedCountries) {
   if (oldSubmitBtn) {
     oldSubmitBtn.remove();
   }
+  
+  // Create the copy button
   const clipboardBtn = document.createElement('button');
   clipboardBtn.textContent = 'Αντιγραφή Αποτελεσμάτων';
   clipboardBtn.style.padding = '8px 15px';
@@ -157,6 +205,7 @@ function createClipboardButton(container, today, selectedCountries) {
   clipboardBtn.style.borderRadius = '4px';
   clipboardBtn.style.cursor = 'pointer';
   clipboardBtn.style.position = 'relative';
+  clipboardBtn.style.width = '100%';
   
   // Flashing animation
   const flashAnimation = `
@@ -165,59 +214,43 @@ function createClipboardButton(container, today, selectedCountries) {
       25%, 75% { opacity: 0.5; }
     }
   `;
-  const styleSheet = document.createElement("style")
-  styleSheet.type = "text/css"
+  const styleSheet = document.createElement("style");
+  styleSheet.type = "text/css";
   styleSheet.innerText = flashAnimation;
   document.head.appendChild(styleSheet);
   
   clipboardBtn.style.animation = 'flash 1.5s infinite';
+  
+  // Create the show text button
+  const showTextBtn = document.createElement('button');
+  showTextBtn.textContent = 'Είμαι η μαριλενα και δε μπορω να κανω κοπι';
+  showTextBtn.style.padding = '8px 15px';
+  showTextBtn.style.backgroundColor = '#2196F3'; // Blue button
+  showTextBtn.style.color = 'white';
+  showTextBtn.style.border = 'none';
+  showTextBtn.style.borderRadius = '4px';
+  showTextBtn.style.cursor = 'pointer';
+  showTextBtn.style.marginTop = '10px';
+  showTextBtn.style.width = '100%';
+  
+  // Create a hidden text area for the results that will be toggled
+  const resultsTextArea = document.createElement('textarea');
+  resultsTextArea.style.width = '100%';
+  resultsTextArea.style.height = '120px';
+  resultsTextArea.style.padding = '10px';
+  resultsTextArea.style.marginTop = '10px';
+  resultsTextArea.style.marginBottom = '20px';
+  resultsTextArea.style.boxSizing = 'border-box';
+  resultsTextArea.style.border = '1px solid #ccc';
+  resultsTextArea.style.borderRadius = '4px';
+  resultsTextArea.style.display = 'none'; // Initially hidden
+  resultsTextArea.readOnly = true; // Make it read-only
+  
+  // Function for clipboard button click
   clipboardBtn.addEventListener('click', async () => {
-    // Prepare the clipboard text
-    const today = JSON.parse(localStorage.getItem('todayChallenge'));
-    const selectedCountries = Array.from(container.querySelectorAll('.country-slot'))
-      .filter(slot => slot.querySelector('.country-name').textContent)
-      .map(slot => {
-        const countryName = slot.querySelector('.country-name').textContent;
-        const valueSpan = slot.querySelector('.export-value');
-        const backgroundColor = slot.style.backgroundColor;
-        
-        let emoji = '⚪'; // Default neutral emoji
-        if (backgroundColor === 'rgb(129, 199, 132)') emoji = '🟢'; // Green
-        if (backgroundColor === 'rgb(255, 107, 107)') emoji = '🔴'; // Red
-        if (backgroundColor === 'rgb(255, 183, 77)') emoji = '🟡'; // Orange
-        
-        // Get country code from name
-        const countryCode = getCountryCodeByName(today, countryName);
-        
-        return { name: countryName, code: countryCode, emoji };
-      });
-    // Get current date
-    const currentDate = new Date().toLocaleDateString('en-US');
+    // Generate results text using the shared function
+    const clipboardText = await generateResultsText(today, selectedCountries);
     
-    // Calculate percentage
-    const chosenExportValue = selectedCountries.reduce(
-      (acc, item) => {
-        const countryExporter = today.exporters.find(c => c.country_code === item.code);
-        return acc + (countryExporter ? parseInt(countryExporter.value) : 0);
-      }, 0
-    );
-    const percentage = (chosenExportValue / today.sum_of_top_5 * 100).toFixed(2);
-    
-    // Determine emojis for results
-    const emojiString = selectedCountries.map(country => country.emoji).join(' ');
-    
-    // Generate shareable URL
-    const shareableUrl = await generateShareableUrl(today, selectedCountries);
-    
-    // Construct clipboard text
-    // count the amount of green emojis
-    const greenEmojis = emojiString.match(/🟢/g) || [];
-    const emojiCount = greenEmojis.length;
-    const clipboardText = `${currentDate} - ${today.product_name} το ${today.year}
-${percentage}%
-${emojiString} ${emojiCount}/5
-Παίξε στο: ${window.location.href}
-Τα αποτελέσματά μου: ${shareableUrl}`;
     // Copy to clipboard
     navigator.clipboard.writeText(clipboardText).then(() => {
       // Temporary style change to indicate successful copy
@@ -231,7 +264,27 @@ ${emojiString} ${emojiCount}/5
       console.error('Failed to copy: ', err);
     });
   });
+  
+  // Generate and set the initial content for the text area
+  generateResultsText(today, selectedCountries).then(text => {
+    resultsTextArea.value = text;
+  });
+  
+  // Function for show text button click
+  showTextBtn.addEventListener('click', () => {
+    if (resultsTextArea.style.display === 'none') {
+      resultsTextArea.style.display = 'block';
+      showTextBtn.textContent = 'Εντάξει Κρύψτο';
+    } else {
+      resultsTextArea.style.display = 'none';
+      showTextBtn.textContent = 'Είμαι η μαριλενα και δε μπορω να κανω κοπι';
+    }
+  });
+  
+  // Add buttons and text area to container
   container.appendChild(clipboardBtn);
+  container.appendChild(showTextBtn);
+  container.appendChild(resultsTextArea);
   
   // Display correct answers
   displayCorrectAnswers(container, today);
@@ -661,7 +714,7 @@ function createInterface({today}) {
 }
 
 function todayChallenge() {
-  return fetch('/pare5/today.json')
+  return fetch('/today.json')
     .then(response => response.json())
     .then(today => {
       // Ensure exporters have name property based on country_code
