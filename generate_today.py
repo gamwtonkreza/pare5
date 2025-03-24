@@ -224,7 +224,9 @@ e = exports.merge(country_codes, on='country_code')
 
 # keep only ones with acceptable product names
 
-no_foniades_monday = False
+# if monday keep only products that are exported to USA, Germany, China
+
+no_foniades_monday = datetime.date.today().weekday() == 0
 
 while True:
     idx = random.randint(0, len(product_codes) - 1)
