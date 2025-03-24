@@ -12,6 +12,9 @@ function toHumanReadableFormat(num) {
   if (abs >= 1_000) {
     return `$${(num / 1_000).toFixed(1)}K`;
   }
+  if (abs >= 100) {
+    return `$${num.toFixed(0)}`;
+  }
   return `$${num.toFixed(2)}`;
 }
 
@@ -172,7 +175,13 @@ function displayCorrectAnswers(container, today) {
     // Country name from country code
     const countryName = document.createElement('span');
     const countryNameStr = getCountryNameByCode(today, exporter.country_code);
-    countryName.textContent = countryNameStr || `Unknown (${exporter.country_code})`;
+    const countryEmoji = today.emojis[exporter.country_code];
+    if (countryNameStr) {
+      countryName.textContent = `${countryEmoji} ${countryNameStr}`;
+    } else {
+      countryName.textContent = `Unknown (country code: ${exporter.country_code})`;
+    }
+    countryName.style.fontSize = '20px';
     countryName.style.flexGrow = '1';
     slot.appendChild(countryName);
     
@@ -180,6 +189,7 @@ function displayCorrectAnswers(container, today) {
     const exportValue = document.createElement('span');
     exportValue.textContent = toHumanReadableFormat(exporter.value);
     exportValue.style.fontFamily = 'monospace';
+    exportValue.style.fontSize = '20px';
     slot.appendChild(exportValue);
     
     correctSlotsContainer.appendChild(slot);
@@ -529,6 +539,7 @@ function createInterface({today}) {
         item.style.padding = '8px 12px';
         item.style.cursor = 'pointer';
         item.style.transition = 'background-color 0.2s';
+        item.style.fontSize = '20px';
         
         item.addEventListener('mouseover', () => {
           item.style.backgroundColor = '#f0f0f0';
@@ -619,6 +630,7 @@ function createInterface({today}) {
       if (emptySlot) {
         const nameSpan = emptySlot.querySelector('.country-name');
         nameSpan.textContent = `${name_to_emoji[selectedCountry]} ${selectedCountry}`;
+        nameSpan.style.fontSize = '20px';
         nameSpan.dataset.countryCode = selectedCountryCode; // Store country code in dataset
         nameSpan.dataset.countryName = selectedCountry; // Store country code in dataset
         
@@ -629,6 +641,7 @@ function createInterface({today}) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
+        valueSpan.style.fontSize = '20px';
         
         emptySlot.style.backgroundColor = getCountryColor(rank, value);
         
@@ -654,7 +667,7 @@ function createInterface({today}) {
         
         if (filledCountries.length >= 5) {
           searchInput.disabled = true;
-          
+
           // Replace submit button with clipboard button
           createClipboardButton(container, today, filledCountries);
         }
@@ -673,7 +686,17 @@ function createInterface({today}) {
     // Disable search and submit
     searchInput.disabled = true;
     submitBtn.disabled = true;
-    
+
+    // Also hide the search bar
+    searchContainer.style.display = 'none';
+
+    // hide all 'button'
+    const allButtons = document.querySelectorAll('button');
+    allButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+
+
     // Fill in the countries from the shared result
     const slots = Array.from(slotsContainer.querySelectorAll('.country-slot'));
     const countriesToFill = sharedResult.countries.slice(0, 5); // Limit to 5 countries
@@ -690,6 +713,7 @@ function createInterface({today}) {
           nameSpan.textContent = `Unknown (${countryCode})`;
         }
         nameSpan.dataset.countryCode = countryCode;
+        nameSpan.style.fontSize = '20px';
         
         const countryExporter = today.exporters.find(c => c.country_code === parseInt(countryCode));
         const value = countryExporter?.value || 0;
@@ -701,6 +725,7 @@ function createInterface({today}) {
           rank = exportersValuesArray.length + 1;
         }
         valueSpan.textContent = `${toHumanReadableFormat(value)} (${rank})`;
+        valueSpan.style.fontSize = '20px';
         
         slot.style.backgroundColor = getCountryColor(rank, value);
       }
@@ -722,10 +747,12 @@ function createInterface({today}) {
     
     // Create clipboard button and show correct answers
     if (filledCountries.length === 5) {
-      createClipboardButton(container, today, filledCountries.map(country => ({ 
-        name: country.country, 
-        code: country.code 
-      })));
+
+      displayCorrectAnswers(container, today);
+      // createClipboardButton(container, today, filledCountries.map(country => ({ 
+      //   name: country.country, 
+      //   code: country.code 
+      // })));
     }
   } else {
     updateBarGraph([]);
