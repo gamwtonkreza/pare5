@@ -22,6 +22,57 @@ def get_countries_by_year(year):
     Returns:
         dict: A dictionary with clean country names as keys and country codes as values
     """
+    country_code_to_emoji = {
+        4: "🇦🇫", 8: "🇦🇱", 12: "🇩🇿", 16: "🇦🇸", 20: "🇦🇩",
+        24: "🇦🇴", 28: "🇦🇬", 31: "🇦🇿", 32: "🇦🇷", 36: "🇦🇺",
+        40: "🇦🇹", 44: "🇧🇸", 48: "🇧🇭", 50: "🇧🇩", 51: "🇦🇲",
+        52: "🇧🇧", 56: "🇧🇪", 58: "🇧🇪", 60: "🇧🇲", 64: "🇧🇹",
+        68: "🇧🇴", 70: "🇧🇦", 72: "🇧🇼", 76: "🇧🇷", 84: "🇧🇿",
+        86: "🇮🇴", 90: "🇸🇧", 92: "🇻🇬", 96: "🇧🇳", 100: "🇧🇬",
+        104: "🇲🇲", 108: "🇧🇮", 112: "🇧🇾", 116: "🇰🇭", 120: "🇨🇲",
+        124: "🇨🇦", 132: "🇨🇻", 136: "🇰🇾", 140: "🇨🇫", 144: "🇱🇰",
+        148: "🇹🇩", 152: "🇨🇱", 156: "🇨🇳", 162: "🇨🇽", 166: "🇨🇨",
+        170: "🇨🇴", 174: "🇰🇲", 175: "🇾🇹", 178: "🇨🇬", 180: "🇨🇩",
+        184: "🇨🇰", 188: "🇨🇷", 191: "🇭🇷", 192: "🇨🇺", 196: "🇨🇾",
+        200: "🇨🇿", 203: "🇨🇿", 204: "🇧🇯", 208: "🇩🇰", 212: "🇩🇲",
+        214: "🇩🇴", 218: "🇪🇨", 222: "🇸🇻", 226: "🇬🇶", 231: "🇪🇹",
+        232: "🇪🇷", 233: "🇪🇪", 238: "🇫🇰", 242: "🇫🇯", 246: "🇫🇮",
+        251: "🇫🇷", 258: "🇵🇫", 260: "🇹🇫", 262: "🇩🇯", 266: "🇬🇦",
+        268: "🇬🇪", 270: "🇬🇲", 275: "🇵🇸", 276: "🇩🇪", 278: "🇩🇪",
+        280: "🇩🇪", 288: "🇬🇭", 292: "🇬🇮", 296: "🇰🇮", 300: "🇬🇷",
+        304: "🇬🇱", 308: "🇬🇩", 316: "🇬🇺", 320: "🇬🇹", 324: "🇬🇳",
+        328: "🇬🇾", 332: "🇭🇹", 340: "🇭🇳", 344: "🇭🇰", 348: "🇭🇺",
+        352: "🇮🇸", 360: "🇮🇩", 364: "🇮🇷", 368: "🇮🇶", 372: "🇮🇪",
+        376: "🇮🇱", 380: "🇮🇹", 384: "🇨🇮", 388: "🇯🇲", 392: "🇯🇵",
+        398: "🇰🇿", 400: "🇯🇴", 404: "🇰🇪", 408: "🇰🇵", 410: "🇰🇷",
+        414: "🇰🇼", 417: "🇰🇬", 418: "🇱🇦", 422: "🇱🇧", 426: "🇱🇸",
+        428: "🇱🇻", 430: "🇱🇷", 434: "🇱🇾", 440: "🇱🇹", 442: "🇱🇺",
+        446: "🇲🇴", 450: "🇲🇬", 454: "🇲🇼", 458: "🇲🇾", 462: "🇲🇻",
+        466: "🇲🇱", 470: "🇲🇹", 478: "🇲🇷", 480: "🇲🇺", 484: "🇲🇽",
+        490: "🇹🇼", 496: "🇲🇳", 498: "🇲🇩", 499: "🇲🇪", 500: "🇲🇸",
+        504: "🇲🇦", 508: "🇲🇿", 512: "🇴🇲", 516: "🇳🇦", 520: "🇳🇷",
+        524: "🇳🇵", 528: "🇳🇱", 530: "🇦🇳", 531: "🇨🇼", 533: "🇦🇼",
+        534: "🇸🇽", 535: "🇧🇶", 540: "🇳🇨", 548: "🇻🇺", 554: "🇳🇿",
+        558: "🇳🇮", 562: "🇳🇪", 566: "🇳🇬", 570: "🇳🇺", 574: "🇳🇫",
+        579: "🇳🇴", 580: "🇲🇵", 583: "🇫🇲", 584: "🇲🇭", 585: "🇵🇼",
+        586: "🇵🇰", 591: "🇵🇦", 598: "🇵🇬", 600: "🇵🇾", 604: "🇵🇪",
+        608: "🇵🇭", 612: "🇵🇳", 616: "🇵🇱", 620: "🇵🇹", 624: "🇬🇼",
+        626: "🇹🇱", 634: "🇶🇦", 642: "🇷🇴", 643: "🇷🇺", 646: "🇷🇼",
+        652: "🇧🇱", 654: "🇸🇭", 659: "🇰🇳", 660: "🇦🇮", 662: "🇱🇨",
+        666: "🇵🇲", 670: "🇻🇨", 674: "🇸🇲", 678: "🇸🇹", 682: "🇸🇦",
+        686: "🇸🇳", 688: "🇷🇸", 690: "🇸🇨", 694: "🇸🇱", 697: "🇪🇺",
+        699: "🇮🇳", 702: "🇸🇬", 703: "🇸🇰", 704: "🇻🇳", 705: "🇸🇮",
+        706: "🇸🇴", 710: "🇿🇦", 711: "🇿🇦", 716: "🇿🇼", 724: "🇪🇸",
+        728: "🇸🇸", 729: "🇸🇩", 736: "🇸🇩", 740: "🇸🇷", 748: "🇸🇿",
+        752: "🇸🇪", 757: "🇨🇭", 760: "🇸🇾", 762: "🇹🇯", 764: "🇹🇭",
+        768: "🇹🇬", 772: "🇹🇰", 776: "🇹🇴", 780: "🇹🇹", 784: "🇦🇪",
+        788: "🇹🇳", 792: "🇹🇷", 795: "🇹🇲", 796: "🇹🇨", 798: "🇹🇻",
+        800: "🇺🇬", 804: "🇺🇦", 807: "🇲🇰", 810: "🇷🇺", 818: "🇪🇬",
+        826: "🇬🇧", 834: "🇹🇿", 842: "🇺🇸", 849: "🇺🇲", 854: "🇧🇫",
+        858: "🇺🇾", 860: "🇺🇿", 862: "🇻🇪", 876: "🇼🇫", 882: "🇼🇸",
+        887: "🇾🇪", 891: "🇷🇸", 894: "🇿🇲"
+    }
+
     # Base dictionary of all countries and codes with English names
     all_countries = {
         "Afghanistan": 4, "Albania": 8, "Algeria": 12, "American Samoa": 16, "Andorra": 20, 
@@ -182,8 +233,15 @@ def get_countries_by_year(year):
             # For all other countries without specific year constraints
             else:
                 valid_countries[country] = code
-    
-    return valid_countries
+
+
+    country_code_to_emoji = {
+        k: v for k, v in country_code_to_emoji.items() 
+        if k in valid_countries.values()
+    }
+
+    return (valid_countries, country_code_to_emoji)
+
 # unique id for each day
 def today_id() -> int:
     today = datetime.date.today()
@@ -203,12 +261,13 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
-year = random.randint(2010, 2023)
+year = random.randint(1995, 2023)
 
 # exports = pd.read_csv('CSV_DATA/exports.csv') 
 exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
 exports = exports_full[exports_full['year'] == year]
-country_codes = get_countries_by_year(year)
+(country_codes, emoji) = get_countries_by_year(year)
+
 
 # sum_of_top_5 = float(exports.sort_values(by='value')['value'][-5:].sum())
 
@@ -266,7 +325,7 @@ while True:
     break
 
 # # usa germany china country codes
-country_codes_filtered = get_countries_by_year(year)
+(country_codes_filtered, _) = get_countries_by_year(year)
 # # remove usa germany china from country_codes
 
 if no_foniades_monday:
@@ -279,6 +338,7 @@ today_json = {
     "year": year,
     "sum_of_top_5": sum_of_top_5,
     "country_codes": country_codes_filtered,
+    "emojis": emoji,
     "exporters": [
         { "country_code": row.country_code, "value" : row.value }
         for row in e.itertuples()

@@ -245,11 +245,14 @@ function createClipboardButton(container, today, selectedCountries) {
   resultsTextArea.style.borderRadius = '4px';
   resultsTextArea.style.display = 'none'; // Initially hidden
   resultsTextArea.readOnly = true; // Make it read-only
+
+  const resTextPromise = generateResultsText(today, selectedCountries);
   
   // Function for clipboard button click
   clipboardBtn.addEventListener('click', async () => {
     // Generate results text using the shared function
-    const clipboardText = await generateResultsText(today, selectedCountries);
+    const clipboardText = await resTextPromise;
+    // generateResultsText(today, selectedCountries);
     
     // Copy to clipboard
     navigator.clipboard.writeText(clipboardText).then(() => {
@@ -266,7 +269,8 @@ function createClipboardButton(container, today, selectedCountries) {
   });
   
   // Generate and set the initial content for the text area
-  generateResultsText(today, selectedCountries).then(text => {
+  // generateResultsText(today, selectedCountries).then(text => {
+  resTextPromise.then(text => {
     resultsTextArea.value = text;
   });
   
@@ -336,6 +340,15 @@ function createInterface({today}) {
   
   // Get all country names from the country_codes object
   const country_names = Object.keys(today.country_codes);
+
+  // For all countries, get the code and add the corresponding emoji, by querying today.emoji with the code
+
+  const name_to_emoji = {};
+  for (const country of country_names) {
+    const code = today.country_codes[country];
+    const emoji = today.emojis[code];
+    name_to_emoji[country] = emoji;
+  }
   
   // Check if there's a shared result in the URL
   const hashParams = window.location.hash.substring(1).split('&');
@@ -497,7 +510,7 @@ function createInterface({today}) {
   function populateDropdown(countryList) {
     const selectedCountries = Array.from(slotsContainer.querySelectorAll('.country-name'))
       .filter(span => span.textContent)
-      .map(span => span.textContent);
+      .map(span => span.dataset.countryName);
     
     const availableCountries = countryList.filter(country => 
       !selectedCountries.includes(country)
@@ -512,7 +525,7 @@ function createInterface({today}) {
     } else {
       availableCountries.forEach(country => {
         const item = document.createElement('li');
-        item.textContent = country;
+        item.textContent = `${country} ${name_to_emoji[country]}`;
         item.style.padding = '8px 12px';
         item.style.cursor = 'pointer';
         item.style.transition = 'background-color 0.2s';
@@ -605,8 +618,9 @@ function createInterface({today}) {
       
       if (emptySlot) {
         const nameSpan = emptySlot.querySelector('.country-name');
-        nameSpan.textContent = selectedCountry;
+        nameSpan.textContent = `${name_to_emoji[selectedCountry]} ${selectedCountry}`;
         nameSpan.dataset.countryCode = selectedCountryCode; // Store country code in dataset
+        nameSpan.dataset.countryName = selectedCountry; // Store country code in dataset
         
         const valueSpan = emptySlot.querySelector('.export-value');
         const exportersValuesArray = today.exporters.map(exporter => exporter.value);
@@ -621,7 +635,7 @@ function createInterface({today}) {
         const filledCountries = Array.from(slotsContainer.querySelectorAll('.country-slot'))
           .filter(slot => slot.querySelector('.country-name').textContent)
           .map(slot => {
-            const countryName = slot.querySelector('.country-name').textContent;
+            const countryName = slot.querySelector('.country-name').dataset.countryName;
             const countryCode = slot.querySelector('.country-name').dataset.countryCode;
             const countryExporter = today.exporters.find(c => c.country_code === parseInt(countryCode));
             return {
@@ -669,7 +683,12 @@ function createInterface({today}) {
         const slot = slots[index];
         const nameSpan = slot.querySelector('.country-name');
         const countryName = getCountryNameByCode(today, parseInt(countryCode));
-        nameSpan.textContent = countryName || `Unknown (${countryCode})`;
+        const country_emoji = name_to_emoji[countryName];
+        if (countryName) {
+          nameSpan.textContent = `${country_emoji} ${countryName}`
+        } else {
+          nameSpan.textContent = `Unknown (${countryCode})`;
+        }
         nameSpan.dataset.countryCode = countryCode;
         
         const countryExporter = today.exporters.find(c => c.country_code === parseInt(countryCode));

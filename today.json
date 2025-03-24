@@ -1,7 +1,7 @@
 {
     "product_name": "Binoculars",
-    "year": 2022,
-    "sum_of_top_5": 201623.263,
+    "year": 2019,
+    "sum_of_top_5": 136505.376,
     "country_codes": {
         "Afghanistan": 4,
         "Albania": 8,
@@ -230,558 +230,793 @@
         "Yemen": 887,
         "Zambia": 894
     },
+    "emojis": {
+        "4": "\ud83c\udde6\ud83c\uddeb",
+        "8": "\ud83c\udde6\ud83c\uddf1",
+        "12": "\ud83c\udde9\ud83c\uddff",
+        "16": "\ud83c\udde6\ud83c\uddf8",
+        "20": "\ud83c\udde6\ud83c\udde9",
+        "24": "\ud83c\udde6\ud83c\uddf4",
+        "28": "\ud83c\udde6\ud83c\uddec",
+        "31": "\ud83c\udde6\ud83c\uddff",
+        "32": "\ud83c\udde6\ud83c\uddf7",
+        "36": "\ud83c\udde6\ud83c\uddfa",
+        "40": "\ud83c\udde6\ud83c\uddf9",
+        "44": "\ud83c\udde7\ud83c\uddf8",
+        "48": "\ud83c\udde7\ud83c\udded",
+        "50": "\ud83c\udde7\ud83c\udde9",
+        "51": "\ud83c\udde6\ud83c\uddf2",
+        "52": "\ud83c\udde7\ud83c\udde7",
+        "56": "\ud83c\udde7\ud83c\uddea",
+        "60": "\ud83c\udde7\ud83c\uddf2",
+        "64": "\ud83c\udde7\ud83c\uddf9",
+        "68": "\ud83c\udde7\ud83c\uddf4",
+        "70": "\ud83c\udde7\ud83c\udde6",
+        "72": "\ud83c\udde7\ud83c\uddfc",
+        "76": "\ud83c\udde7\ud83c\uddf7",
+        "84": "\ud83c\udde7\ud83c\uddff",
+        "86": "\ud83c\uddee\ud83c\uddf4",
+        "90": "\ud83c\uddf8\ud83c\udde7",
+        "92": "\ud83c\uddfb\ud83c\uddec",
+        "96": "\ud83c\udde7\ud83c\uddf3",
+        "100": "\ud83c\udde7\ud83c\uddec",
+        "104": "\ud83c\uddf2\ud83c\uddf2",
+        "108": "\ud83c\udde7\ud83c\uddee",
+        "112": "\ud83c\udde7\ud83c\uddfe",
+        "116": "\ud83c\uddf0\ud83c\udded",
+        "120": "\ud83c\udde8\ud83c\uddf2",
+        "124": "\ud83c\udde8\ud83c\udde6",
+        "132": "\ud83c\udde8\ud83c\uddfb",
+        "136": "\ud83c\uddf0\ud83c\uddfe",
+        "140": "\ud83c\udde8\ud83c\uddeb",
+        "144": "\ud83c\uddf1\ud83c\uddf0",
+        "148": "\ud83c\uddf9\ud83c\udde9",
+        "152": "\ud83c\udde8\ud83c\uddf1",
+        "156": "\ud83c\udde8\ud83c\uddf3",
+        "162": "\ud83c\udde8\ud83c\uddfd",
+        "166": "\ud83c\udde8\ud83c\udde8",
+        "170": "\ud83c\udde8\ud83c\uddf4",
+        "174": "\ud83c\uddf0\ud83c\uddf2",
+        "175": "\ud83c\uddfe\ud83c\uddf9",
+        "178": "\ud83c\udde8\ud83c\uddec",
+        "180": "\ud83c\udde8\ud83c\udde9",
+        "184": "\ud83c\udde8\ud83c\uddf0",
+        "188": "\ud83c\udde8\ud83c\uddf7",
+        "191": "\ud83c\udded\ud83c\uddf7",
+        "192": "\ud83c\udde8\ud83c\uddfa",
+        "196": "\ud83c\udde8\ud83c\uddfe",
+        "203": "\ud83c\udde8\ud83c\uddff",
+        "204": "\ud83c\udde7\ud83c\uddef",
+        "208": "\ud83c\udde9\ud83c\uddf0",
+        "212": "\ud83c\udde9\ud83c\uddf2",
+        "214": "\ud83c\udde9\ud83c\uddf4",
+        "218": "\ud83c\uddea\ud83c\udde8",
+        "222": "\ud83c\uddf8\ud83c\uddfb",
+        "226": "\ud83c\uddec\ud83c\uddf6",
+        "231": "\ud83c\uddea\ud83c\uddf9",
+        "232": "\ud83c\uddea\ud83c\uddf7",
+        "233": "\ud83c\uddea\ud83c\uddea",
+        "238": "\ud83c\uddeb\ud83c\uddf0",
+        "242": "\ud83c\uddeb\ud83c\uddef",
+        "246": "\ud83c\uddeb\ud83c\uddee",
+        "251": "\ud83c\uddeb\ud83c\uddf7",
+        "258": "\ud83c\uddf5\ud83c\uddeb",
+        "260": "\ud83c\uddf9\ud83c\uddeb",
+        "262": "\ud83c\udde9\ud83c\uddef",
+        "266": "\ud83c\uddec\ud83c\udde6",
+        "268": "\ud83c\uddec\ud83c\uddea",
+        "270": "\ud83c\uddec\ud83c\uddf2",
+        "275": "\ud83c\uddf5\ud83c\uddf8",
+        "276": "\ud83c\udde9\ud83c\uddea",
+        "288": "\ud83c\uddec\ud83c\udded",
+        "292": "\ud83c\uddec\ud83c\uddee",
+        "296": "\ud83c\uddf0\ud83c\uddee",
+        "300": "\ud83c\uddec\ud83c\uddf7",
+        "304": "\ud83c\uddec\ud83c\uddf1",
+        "308": "\ud83c\uddec\ud83c\udde9",
+        "316": "\ud83c\uddec\ud83c\uddfa",
+        "320": "\ud83c\uddec\ud83c\uddf9",
+        "324": "\ud83c\uddec\ud83c\uddf3",
+        "328": "\ud83c\uddec\ud83c\uddfe",
+        "332": "\ud83c\udded\ud83c\uddf9",
+        "340": "\ud83c\udded\ud83c\uddf3",
+        "344": "\ud83c\udded\ud83c\uddf0",
+        "348": "\ud83c\udded\ud83c\uddfa",
+        "352": "\ud83c\uddee\ud83c\uddf8",
+        "360": "\ud83c\uddee\ud83c\udde9",
+        "364": "\ud83c\uddee\ud83c\uddf7",
+        "368": "\ud83c\uddee\ud83c\uddf6",
+        "372": "\ud83c\uddee\ud83c\uddea",
+        "376": "\ud83c\uddee\ud83c\uddf1",
+        "380": "\ud83c\uddee\ud83c\uddf9",
+        "384": "\ud83c\udde8\ud83c\uddee",
+        "388": "\ud83c\uddef\ud83c\uddf2",
+        "392": "\ud83c\uddef\ud83c\uddf5",
+        "398": "\ud83c\uddf0\ud83c\uddff",
+        "400": "\ud83c\uddef\ud83c\uddf4",
+        "404": "\ud83c\uddf0\ud83c\uddea",
+        "408": "\ud83c\uddf0\ud83c\uddf5",
+        "410": "\ud83c\uddf0\ud83c\uddf7",
+        "414": "\ud83c\uddf0\ud83c\uddfc",
+        "417": "\ud83c\uddf0\ud83c\uddec",
+        "418": "\ud83c\uddf1\ud83c\udde6",
+        "422": "\ud83c\uddf1\ud83c\udde7",
+        "426": "\ud83c\uddf1\ud83c\uddf8",
+        "428": "\ud83c\uddf1\ud83c\uddfb",
+        "430": "\ud83c\uddf1\ud83c\uddf7",
+        "434": "\ud83c\uddf1\ud83c\uddfe",
+        "440": "\ud83c\uddf1\ud83c\uddf9",
+        "442": "\ud83c\uddf1\ud83c\uddfa",
+        "446": "\ud83c\uddf2\ud83c\uddf4",
+        "450": "\ud83c\uddf2\ud83c\uddec",
+        "454": "\ud83c\uddf2\ud83c\uddfc",
+        "458": "\ud83c\uddf2\ud83c\uddfe",
+        "462": "\ud83c\uddf2\ud83c\uddfb",
+        "466": "\ud83c\uddf2\ud83c\uddf1",
+        "470": "\ud83c\uddf2\ud83c\uddf9",
+        "478": "\ud83c\uddf2\ud83c\uddf7",
+        "480": "\ud83c\uddf2\ud83c\uddfa",
+        "484": "\ud83c\uddf2\ud83c\uddfd",
+        "490": "\ud83c\uddf9\ud83c\uddfc",
+        "496": "\ud83c\uddf2\ud83c\uddf3",
+        "498": "\ud83c\uddf2\ud83c\udde9",
+        "499": "\ud83c\uddf2\ud83c\uddea",
+        "500": "\ud83c\uddf2\ud83c\uddf8",
+        "504": "\ud83c\uddf2\ud83c\udde6",
+        "508": "\ud83c\uddf2\ud83c\uddff",
+        "512": "\ud83c\uddf4\ud83c\uddf2",
+        "516": "\ud83c\uddf3\ud83c\udde6",
+        "520": "\ud83c\uddf3\ud83c\uddf7",
+        "524": "\ud83c\uddf3\ud83c\uddf5",
+        "528": "\ud83c\uddf3\ud83c\uddf1",
+        "531": "\ud83c\udde8\ud83c\uddfc",
+        "533": "\ud83c\udde6\ud83c\uddfc",
+        "534": "\ud83c\uddf8\ud83c\uddfd",
+        "535": "\ud83c\udde7\ud83c\uddf6",
+        "540": "\ud83c\uddf3\ud83c\udde8",
+        "548": "\ud83c\uddfb\ud83c\uddfa",
+        "554": "\ud83c\uddf3\ud83c\uddff",
+        "558": "\ud83c\uddf3\ud83c\uddee",
+        "562": "\ud83c\uddf3\ud83c\uddea",
+        "566": "\ud83c\uddf3\ud83c\uddec",
+        "570": "\ud83c\uddf3\ud83c\uddfa",
+        "574": "\ud83c\uddf3\ud83c\uddeb",
+        "579": "\ud83c\uddf3\ud83c\uddf4",
+        "580": "\ud83c\uddf2\ud83c\uddf5",
+        "583": "\ud83c\uddeb\ud83c\uddf2",
+        "584": "\ud83c\uddf2\ud83c\udded",
+        "585": "\ud83c\uddf5\ud83c\uddfc",
+        "586": "\ud83c\uddf5\ud83c\uddf0",
+        "591": "\ud83c\uddf5\ud83c\udde6",
+        "598": "\ud83c\uddf5\ud83c\uddec",
+        "600": "\ud83c\uddf5\ud83c\uddfe",
+        "604": "\ud83c\uddf5\ud83c\uddea",
+        "608": "\ud83c\uddf5\ud83c\udded",
+        "612": "\ud83c\uddf5\ud83c\uddf3",
+        "616": "\ud83c\uddf5\ud83c\uddf1",
+        "620": "\ud83c\uddf5\ud83c\uddf9",
+        "624": "\ud83c\uddec\ud83c\uddfc",
+        "626": "\ud83c\uddf9\ud83c\uddf1",
+        "634": "\ud83c\uddf6\ud83c\udde6",
+        "642": "\ud83c\uddf7\ud83c\uddf4",
+        "643": "\ud83c\uddf7\ud83c\uddfa",
+        "646": "\ud83c\uddf7\ud83c\uddfc",
+        "652": "\ud83c\udde7\ud83c\uddf1",
+        "654": "\ud83c\uddf8\ud83c\udded",
+        "659": "\ud83c\uddf0\ud83c\uddf3",
+        "660": "\ud83c\udde6\ud83c\uddee",
+        "662": "\ud83c\uddf1\ud83c\udde8",
+        "666": "\ud83c\uddf5\ud83c\uddf2",
+        "670": "\ud83c\uddfb\ud83c\udde8",
+        "674": "\ud83c\uddf8\ud83c\uddf2",
+        "678": "\ud83c\uddf8\ud83c\uddf9",
+        "682": "\ud83c\uddf8\ud83c\udde6",
+        "686": "\ud83c\uddf8\ud83c\uddf3",
+        "688": "\ud83c\uddf7\ud83c\uddf8",
+        "690": "\ud83c\uddf8\ud83c\udde8",
+        "694": "\ud83c\uddf8\ud83c\uddf1",
+        "697": "\ud83c\uddea\ud83c\uddfa",
+        "699": "\ud83c\uddee\ud83c\uddf3",
+        "702": "\ud83c\uddf8\ud83c\uddec",
+        "703": "\ud83c\uddf8\ud83c\uddf0",
+        "704": "\ud83c\uddfb\ud83c\uddf3",
+        "705": "\ud83c\uddf8\ud83c\uddee",
+        "706": "\ud83c\uddf8\ud83c\uddf4",
+        "710": "\ud83c\uddff\ud83c\udde6",
+        "716": "\ud83c\uddff\ud83c\uddfc",
+        "724": "\ud83c\uddea\ud83c\uddf8",
+        "728": "\ud83c\uddf8\ud83c\uddf8",
+        "729": "\ud83c\uddf8\ud83c\udde9",
+        "740": "\ud83c\uddf8\ud83c\uddf7",
+        "748": "\ud83c\uddf8\ud83c\uddff",
+        "752": "\ud83c\uddf8\ud83c\uddea",
+        "757": "\ud83c\udde8\ud83c\udded",
+        "760": "\ud83c\uddf8\ud83c\uddfe",
+        "762": "\ud83c\uddf9\ud83c\uddef",
+        "764": "\ud83c\uddf9\ud83c\udded",
+        "768": "\ud83c\uddf9\ud83c\uddec",
+        "772": "\ud83c\uddf9\ud83c\uddf0",
+        "776": "\ud83c\uddf9\ud83c\uddf4",
+        "780": "\ud83c\uddf9\ud83c\uddf9",
+        "784": "\ud83c\udde6\ud83c\uddea",
+        "788": "\ud83c\uddf9\ud83c\uddf3",
+        "792": "\ud83c\uddf9\ud83c\uddf7",
+        "795": "\ud83c\uddf9\ud83c\uddf2",
+        "796": "\ud83c\uddf9\ud83c\udde8",
+        "798": "\ud83c\uddf9\ud83c\uddfb",
+        "800": "\ud83c\uddfa\ud83c\uddec",
+        "804": "\ud83c\uddfa\ud83c\udde6",
+        "807": "\ud83c\uddf2\ud83c\uddf0",
+        "818": "\ud83c\uddea\ud83c\uddec",
+        "826": "\ud83c\uddec\ud83c\udde7",
+        "834": "\ud83c\uddf9\ud83c\uddff",
+        "842": "\ud83c\uddfa\ud83c\uddf8",
+        "849": "\ud83c\uddfa\ud83c\uddf2",
+        "854": "\ud83c\udde7\ud83c\uddeb",
+        "858": "\ud83c\uddfa\ud83c\uddfe",
+        "860": "\ud83c\uddfa\ud83c\uddff",
+        "862": "\ud83c\uddfb\ud83c\uddea",
+        "876": "\ud83c\uddfc\ud83c\uddeb",
+        "882": "\ud83c\uddfc\ud83c\uddf8",
+        "887": "\ud83c\uddfe\ud83c\uddea",
+        "894": "\ud83c\uddff\ud83c\uddf2"
+    },
     "exporters": [
         {
             "country_code": 40,
-            "value": 59955.166
-        },
-        {
-            "country_code": 344,
-            "value": 46333.74
+            "value": 40884.932
         },
         {
             "country_code": 392,
-            "value": 35642.099
-        },
-        {
-            "country_code": 620,
-            "value": 30001.1
-        },
-        {
-            "country_code": 608,
-            "value": 29691.158000000003
+            "value": 38886.765
         },
         {
             "country_code": 251,
-            "value": 16690.168
-        },
-        {
-            "country_code": 490,
-            "value": 13981.497
-        },
-        {
-            "country_code": 300,
-            "value": 12709.45
-        },
-        {
-            "country_code": 826,
-            "value": 11163.016
+            "value": 25529.064
         },
         {
             "country_code": 757,
-            "value": 10948.139
+            "value": 16056.477
         },
         {
-            "country_code": 440,
-            "value": 10909.272
+            "country_code": 620,
+            "value": 15148.138
         },
         {
             "country_code": 528,
-            "value": 9982.86
+            "value": 12483.969
         },
         {
-            "country_code": 422,
-            "value": 6926.171
+            "country_code": 826,
+            "value": 11991.687
         },
         {
-            "country_code": 724,
-            "value": 5127.532999999999
+            "country_code": 608,
+            "value": 11715.048
         },
         {
-            "country_code": 203,
-            "value": 5079.867
+            "country_code": 440,
+            "value": 10735.123
         },
         {
             "country_code": 56,
-            "value": 5055.861
-        },
-        {
-            "country_code": 703,
-            "value": 5038.668000000001
-        },
-        {
-            "country_code": 124,
-            "value": 4582.951
-        },
-        {
-            "country_code": 586,
-            "value": 4074.721
-        },
-        {
-            "country_code": 104,
-            "value": 4021.957
-        },
-        {
-            "country_code": 792,
-            "value": 4019.222
-        },
-        {
-            "country_code": 380,
-            "value": 3616.043
-        },
-        {
-            "country_code": 616,
-            "value": 3271.0550000000003
-        },
-        {
-            "country_code": 36,
-            "value": 2629.648
-        },
-        {
-            "country_code": 100,
-            "value": 2083.758
-        },
-        {
-            "country_code": 376,
-            "value": 1810.502
-        },
-        {
-            "country_code": 764,
-            "value": 1346.303
-        },
-        {
-            "country_code": 364,
-            "value": 1272.102
-        },
-        {
-            "country_code": 442,
-            "value": 1267.632
-        },
-        {
-            "country_code": 752,
-            "value": 1211.833
-        },
-        {
-            "country_code": 710,
-            "value": 1022.927
-        },
-        {
-            "country_code": 784,
-            "value": 983.615
-        },
-        {
-            "country_code": 112,
-            "value": 901.227
+            "value": 9396.377
         },
         {
             "country_code": 702,
-            "value": 860.852
+            "value": 7494.407
         },
         {
-            "country_code": 428,
-            "value": 744.678
+            "country_code": 376,
+            "value": 5715.223
         },
         {
-            "country_code": 348,
-            "value": 699.0980000000001
+            "country_code": 203,
+            "value": 5013.001
         },
         {
-            "country_code": 208,
-            "value": 689.676
+            "country_code": 616,
+            "value": 4609.624
         },
         {
-            "country_code": 258,
-            "value": 605.0930000000001
+            "country_code": 724,
+            "value": 3796.192
         },
         {
-            "country_code": 246,
-            "value": 497.807
+            "country_code": 344,
+            "value": 3130.702
         },
         {
-            "country_code": 579,
-            "value": 409.421
+            "country_code": 124,
+            "value": 3053.421
         },
         {
-            "country_code": 191,
-            "value": 402.096
+            "country_code": 380,
+            "value": 2626.93
         },
         {
-            "country_code": 233,
-            "value": 397.822
-        },
-        {
-            "country_code": 699,
-            "value": 273.725
-        },
-        {
-            "country_code": 705,
-            "value": 266.664
-        },
-        {
-            "country_code": 642,
-            "value": 256.041
-        },
-        {
-            "country_code": 410,
-            "value": 160.632
-        },
-        {
-            "country_code": 372,
-            "value": 154.274
-        },
-        {
-            "country_code": 512,
-            "value": 149.46599999999998
+            "country_code": 112,
+            "value": 2024.134
         },
         {
             "country_code": 643,
-            "value": 146.292
+            "value": 1404.02
         },
         {
-            "country_code": 704,
-            "value": 143.748
+            "country_code": 490,
+            "value": 1400.765
         },
         {
-            "country_code": 740,
-            "value": 134.126
-        },
-        {
-            "country_code": 480,
-            "value": 131.385
-        },
-        {
-            "country_code": 860,
-            "value": 113.631
-        },
-        {
-            "country_code": 262,
-            "value": 110.239
-        },
-        {
-            "country_code": 51,
-            "value": 94.6
-        },
-        {
-            "country_code": 458,
-            "value": 92.172
-        },
-        {
-            "country_code": 804,
-            "value": 89.91600000000001
-        },
-        {
-            "country_code": 566,
-            "value": 75.7
-        },
-        {
-            "country_code": 12,
-            "value": 74.965
-        },
-        {
-            "country_code": 688,
-            "value": 69.488
-        },
-        {
-            "country_code": 554,
-            "value": 66.545
-        },
-        {
-            "country_code": 404,
-            "value": 65.99799999999999
-        },
-        {
-            "country_code": 682,
-            "value": 61.663
-        },
-        {
-            "country_code": 398,
-            "value": 60.607
-        },
-        {
-            "country_code": 360,
-            "value": 54.031
-        },
-        {
-            "country_code": 414,
-            "value": 40.885
-        },
-        {
-            "country_code": 152,
-            "value": 36.991
+            "country_code": 104,
+            "value": 1377.174
         },
         {
             "country_code": 196,
-            "value": 33.678
+            "value": 1160.488
         },
         {
-            "country_code": 76,
-            "value": 22.802
+            "country_code": 100,
+            "value": 1113.064
         },
         {
-            "country_code": 591,
-            "value": 19.936
+            "country_code": 752,
+            "value": 1078.77
         },
         {
-            "country_code": 20,
-            "value": 19.754
+            "country_code": 792,
+            "value": 1069.139
         },
         {
-            "country_code": 484,
-            "value": 18.507
+            "country_code": 36,
+            "value": 970.331
         },
         {
-            "country_code": 214,
-            "value": 16.938
+            "country_code": 703,
+            "value": 951.198
         },
         {
-            "country_code": 748,
-            "value": 15.227
+            "country_code": 364,
+            "value": 873.1
         },
         {
-            "country_code": 470,
-            "value": 12.523
+            "country_code": 784,
+            "value": 728.757
         },
         {
-            "country_code": 50,
-            "value": 11.469
+            "country_code": 410,
+            "value": 521.626
         },
         {
-            "country_code": 690,
-            "value": 9.268
-        },
-        {
-            "country_code": 634,
-            "value": 9.08
-        },
-        {
-            "country_code": 304,
-            "value": 6.7940000000000005
-        },
-        {
-            "country_code": 166,
-            "value": 6.704
-        },
-        {
-            "country_code": 188,
-            "value": 6.375
-        },
-        {
-            "country_code": 352,
-            "value": 6.159
-        },
-        {
-            "country_code": 496,
-            "value": 4.886
-        },
-        {
-            "country_code": 48,
-            "value": 4.8100000000000005
-        },
-        {
-            "country_code": 894,
-            "value": 3.906
-        },
-        {
-            "country_code": 144,
-            "value": 3.38
-        },
-        {
-            "country_code": 508,
-            "value": 3.189
-        },
-        {
-            "country_code": 450,
-            "value": 2.996
-        },
-        {
-            "country_code": 32,
-            "value": 2.966
-        },
-        {
-            "country_code": 800,
-            "value": 2.75
+            "country_code": 710,
+            "value": 511.388
         },
         {
             "country_code": 31,
-            "value": 2.7
+            "value": 438.322
         },
         {
-            "country_code": 24,
-            "value": 2.63
+            "country_code": 48,
+            "value": 436.023
         },
         {
-            "country_code": 320,
-            "value": 2.442
+            "country_code": 208,
+            "value": 405.125
         },
         {
-            "country_code": 478,
-            "value": 2.423
+            "country_code": 705,
+            "value": 395.766
         },
         {
-            "country_code": 807,
-            "value": 2.401
+            "country_code": 699,
+            "value": 379.073
         },
         {
-            "country_code": 780,
-            "value": 2.302
+            "country_code": 246,
+            "value": 348.304
         },
         {
-            "country_code": 818,
-            "value": 2.278
+            "country_code": 586,
+            "value": 342.59900000000005
         },
         {
-            "country_code": 16,
-            "value": 2.144
+            "country_code": 764,
+            "value": 299.635
         },
         {
-            "country_code": 788,
-            "value": 2.098
+            "country_code": 554,
+            "value": 262.015
         },
         {
-            "country_code": 96,
-            "value": 1.819
+            "country_code": 348,
+            "value": 242.864
         },
         {
-            "country_code": 534,
-            "value": 1.689
+            "country_code": 579,
+            "value": 224.725
         },
         {
-            "country_code": 516,
-            "value": 1.566
+            "country_code": 300,
+            "value": 209.334
         },
         {
-            "country_code": 170,
-            "value": 1.06
+            "country_code": 642,
+            "value": 204.524
         },
         {
-            "country_code": 834,
-            "value": 0.758
+            "country_code": 512,
+            "value": 204.05
         },
         {
-            "country_code": 8,
-            "value": 0.741
+            "country_code": 748,
+            "value": 171.07
         },
         {
-            "country_code": 678,
-            "value": 0.556
-        },
-        {
-            "country_code": 729,
-            "value": 0.536
-        },
-        {
-            "country_code": 70,
-            "value": 0.496
-        },
-        {
-            "country_code": 504,
-            "value": 0.4049999999999999
-        },
-        {
-            "country_code": 268,
-            "value": 0.384
-        },
-        {
-            "country_code": 4,
-            "value": 0.363
-        },
-        {
-            "country_code": 531,
-            "value": 0.313
-        },
-        {
-            "country_code": 646,
-            "value": 0.313
-        },
-        {
-            "country_code": 499,
-            "value": 0.299
-        },
-        {
-            "country_code": 231,
-            "value": 0.282
-        },
-        {
-            "country_code": 498,
-            "value": 0.272
-        },
-        {
-            "country_code": 558,
-            "value": 0.24
-        },
-        {
-            "country_code": 716,
-            "value": 0.192
-        },
-        {
-            "country_code": 222,
-            "value": 0.168
-        },
-        {
-            "country_code": 116,
-            "value": 0.099
-        },
-        {
-            "country_code": 266,
-            "value": 0.098
-        },
-        {
-            "country_code": 72,
-            "value": 0.079
-        },
-        {
-            "country_code": 120,
-            "value": 0.072
-        },
-        {
-            "country_code": 218,
-            "value": 0.069
-        },
-        {
-            "country_code": 44,
-            "value": 0.05
-        },
-        {
-            "country_code": 417,
-            "value": 0.0489999999999999
-        },
-        {
-            "country_code": 604,
-            "value": 0.04
-        },
-        {
-            "country_code": 340,
-            "value": 0.035
-        },
-        {
-            "country_code": 418,
-            "value": 0.033
-        },
-        {
-            "country_code": 760,
-            "value": 0.032
+            "country_code": 233,
+            "value": 163.969
         },
         {
             "country_code": 400,
-            "value": 0.031
+            "value": 153.992
         },
         {
-            "country_code": 408,
-            "value": 0.026
+            "country_code": 804,
+            "value": 143.857
         },
         {
-            "country_code": 426,
-            "value": 0.021
+            "country_code": 428,
+            "value": 133.30599999999998
         },
         {
-            "country_code": 662,
-            "value": 0.02
+            "country_code": 96,
+            "value": 100.333
         },
         {
-            "country_code": 654,
-            "value": 0.019
+            "country_code": 372,
+            "value": 89.209
         },
         {
-            "country_code": 28,
-            "value": 0.017
+            "country_code": 788,
+            "value": 84.774
+        },
+        {
+            "country_code": 442,
+            "value": 74.669
+        },
+        {
+            "country_code": 484,
+            "value": 63.926
+        },
+        {
+            "country_code": 398,
+            "value": 40.435
+        },
+        {
+            "country_code": 258,
+            "value": 37.489
+        },
+        {
+            "country_code": 704,
+            "value": 34.508
+        },
+        {
+            "country_code": 780,
+            "value": 33.099
+        },
+        {
+            "country_code": 152,
+            "value": 30.931
+        },
+        {
+            "country_code": 418,
+            "value": 29.167
+        },
+        {
+            "country_code": 591,
+            "value": 27.889
+        },
+        {
+            "country_code": 191,
+            "value": 27.824
+        },
+        {
+            "country_code": 50,
+            "value": 25.637
+        },
+        {
+            "country_code": 170,
+            "value": 24.255000000000003
+        },
+        {
+            "country_code": 470,
+            "value": 22.928
+        },
+        {
+            "country_code": 516,
+            "value": 22.507
+        },
+        {
+            "country_code": 116,
+            "value": 22.427
+        },
+        {
+            "country_code": 20,
+            "value": 16.479
+        },
+        {
+            "country_code": 688,
+            "value": 15.874
+        },
+        {
+            "country_code": 458,
+            "value": 14.79
+        },
+        {
+            "country_code": 76,
+            "value": 13.122
+        },
+        {
+            "country_code": 858,
+            "value": 12.908
+        },
+        {
+            "country_code": 422,
+            "value": 12.682
+        },
+        {
+            "country_code": 480,
+            "value": 11.579
+        },
+        {
+            "country_code": 690,
+            "value": 10.334
+        },
+        {
+            "country_code": 404,
+            "value": 8.773
+        },
+        {
+            "country_code": 32,
+            "value": 8.311
+        },
+        {
+            "country_code": 188,
+            "value": 7.231
+        },
+        {
+            "country_code": 504,
+            "value": 6.586
+        },
+        {
+            "country_code": 352,
+            "value": 4.765
+        },
+        {
+            "country_code": 70,
+            "value": 4.405
+        },
+        {
+            "country_code": 51,
+            "value": 4.027
+        },
+        {
+            "country_code": 446,
+            "value": 4.0
+        },
+        {
+            "country_code": 360,
+            "value": 3.443
+        },
+        {
+            "country_code": 328,
+            "value": 3.276
+        },
+        {
+            "country_code": 682,
+            "value": 3.15
+        },
+        {
+            "country_code": 854,
+            "value": 2.975
+        },
+        {
+            "country_code": 768,
+            "value": 2.65
+        },
+        {
+            "country_code": 694,
+            "value": 2.631
+        },
+        {
+            "country_code": 862,
+            "value": 2.419
+        },
+        {
+            "country_code": 268,
+            "value": 2.366
+        },
+        {
+            "country_code": 320,
+            "value": 2.287
+        },
+        {
+            "country_code": 222,
+            "value": 1.823
+        },
+        {
+            "country_code": 414,
+            "value": 1.664
         },
         {
             "country_code": 288,
-            "value": 0.008
+            "value": 1.584
         },
         {
-            "country_code": 462,
-            "value": 0.005
+            "country_code": 242,
+            "value": 1.562
+        },
+        {
+            "country_code": 800,
+            "value": 1.4489999999999998
+        },
+        {
+            "country_code": 417,
+            "value": 1.246
+        },
+        {
+            "country_code": 508,
+            "value": 1.113
+        },
+        {
+            "country_code": 28,
+            "value": 1.053
+        },
+        {
+            "country_code": 144,
+            "value": 1.025
+        },
+        {
+            "country_code": 716,
+            "value": 1.021
+        },
+        {
+            "country_code": 534,
+            "value": 1.019
+        },
+        {
+            "country_code": 566,
+            "value": 0.797
+        },
+        {
+            "country_code": 499,
+            "value": 0.756
+        },
+        {
+            "country_code": 60,
+            "value": 0.729
+        },
+        {
+            "country_code": 384,
+            "value": 0.71
+        },
+        {
+            "country_code": 52,
+            "value": 0.688
+        },
+        {
+            "country_code": 24,
+            "value": 0.669
+        },
+        {
+            "country_code": 120,
+            "value": 0.613
+        },
+        {
+            "country_code": 388,
+            "value": 0.584
+        },
+        {
+            "country_code": 218,
+            "value": 0.568
+        },
+        {
+            "country_code": 662,
+            "value": 0.568
+        },
+        {
+            "country_code": 894,
+            "value": 0.559
+        },
+        {
+            "country_code": 860,
+            "value": 0.505
+        },
+        {
+            "country_code": 531,
+            "value": 0.503
+        },
+        {
+            "country_code": 44,
+            "value": 0.496
+        },
+        {
+            "country_code": 524,
+            "value": 0.493
+        },
+        {
+            "country_code": 807,
+            "value": 0.4
+        },
+        {
+            "country_code": 500,
+            "value": 0.272
+        },
+        {
+            "country_code": 332,
+            "value": 0.151
+        },
+        {
+            "country_code": 818,
+            "value": 0.14
+        },
+        {
+            "country_code": 214,
+            "value": 0.135
+        },
+        {
+            "country_code": 834,
+            "value": 0.134
+        },
+        {
+            "country_code": 231,
+            "value": 0.118
+        },
+        {
+            "country_code": 178,
+            "value": 0.114
+        },
+        {
+            "country_code": 558,
+            "value": 0.105
+        },
+        {
+            "country_code": 426,
+            "value": 0.104
+        },
+        {
+            "country_code": 562,
+            "value": 0.095
+        },
+        {
+            "country_code": 84,
+            "value": 0.092
+        },
+        {
+            "country_code": 108,
+            "value": 0.066
+        },
+        {
+            "country_code": 340,
+            "value": 0.055
+        },
+        {
+            "country_code": 68,
+            "value": 0.042
+        },
+        {
+            "country_code": 266,
+            "value": 0.034
+        },
+        {
+            "country_code": 90,
+            "value": 0.029
+        },
+        {
+            "country_code": 136,
+            "value": 0.019
+        },
+        {
+            "country_code": 72,
+            "value": 0.009
         }
     ]
 }
