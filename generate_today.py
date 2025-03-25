@@ -253,7 +253,7 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     # print(product_name)
-    return len(name) < 30
+    return len(name) < 6000
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
@@ -261,7 +261,10 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
-year = random.randint(1995, 2023)
+# year = random.randint(1995, 2023)
+year = 2004
+
+print("Year:", year)
 
 # exports = pd.read_csv('CSV_DATA/exports.csv') 
 exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
@@ -287,8 +290,8 @@ e = exports.merge(country_codes, on='country_code')
 
 no_foniades_monday = datetime.date.today().weekday() == 0
 
-while True:
-    idx = random.randint(0, len(product_codes) - 1)
+found = False
+for idx in random.sample(range(len(product_codes)), len(product_codes)):
     product_code, product_name = product_codes.iloc[idx]
 
     current = e[e["product_code"] == product_code]
@@ -296,6 +299,19 @@ while True:
     top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
 
     if not acceptable_name(product_name):
+        continue
+
+    if "Greece" in top5_countries:
+        if not ("Greece" == top5_countries[0]):
+            continue
+        else:
+            print("Greece in top 5")
+            print("Product:", product_name)
+            print("Top 5:", top5_countries)
+            if (input("Keep? (y/n) ") == "n"):
+                continue
+
+    else:
         continue
 
     if no_foniades_monday:
@@ -318,11 +334,14 @@ while True:
 
     e = current.sort_values(by='value', ascending=False)
 
-    
-
     print("Chose product:", product_name)
 
+    found = True
     break
+
+if not found:
+    print("No suitable product found")
+    exit()
 
 # # usa germany china country codes
 (country_codes_filtered, _) = get_countries_by_year(year)
