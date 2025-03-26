@@ -261,8 +261,7 @@ product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 # initialize random machine with today_id
 random.seed(today_id())
 
-# year = random.randint(1995, 2023)
-year = 2004
+year = random.randint(1995, 2023)
 
 print("Year:", year)
 
@@ -299,19 +298,6 @@ for idx in random.sample(range(len(product_codes)), len(product_codes)):
     top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
 
     if not acceptable_name(product_name):
-        continue
-
-    if "Greece" in top5_countries:
-        if not ("Greece" == top5_countries[0]):
-            continue
-        else:
-            print("Greece in top 5")
-            print("Product:", product_name)
-            print("Top 5:", top5_countries)
-            if (input("Keep? (y/n) ") == "n"):
-                continue
-
-    else:
         continue
 
     if no_foniades_monday:

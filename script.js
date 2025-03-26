@@ -770,7 +770,6 @@ function todayChallenge() {
       });
       
       // Store in localStorage for clipboard access
-      localStorage.setItem('todayChallenge', JSON.stringify(today));
       return { today };
     });
 }
