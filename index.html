@@ -4,12 +4,25 @@
     <meta charset="UTF-8">
     <title>Πάρε 5</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.onload = function() {
+            const day = new Date().getDay();
+            const topH1 = document.getElementById('topHeader');
+            const bottomH1 = document.getElementById('bottomHeader');
+            
+            if (day === 1) { // Monday
+                topH1.textContent = "Πάρε 5 Special Edition";
+                bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών Δευτέρες";
+            } else {
+                topH1.textContent = "Πάρε 5";
+                bottomH1.textContent = ""; // Empty for non-Monday
+            }
+        };
+    </script>
 </head>
 <body>
-    <h1>Πάρε 5</h1>
-    <!-- <h1>Πάρε 5 Special Edition</h1> -->
-    <!-- <h1>Faκεχειρία Πέμπτες</h1> -->
-    <!-- <h1>Χωρίς φονιάδες των λαών Δευτέρες</h1> -->
+    <h1 id="topHeader">Πάρε 5</h1>
+    <h1 id="bottomHeader"></h1>
     <div id="challenge"></div>
     <script src="script.js?v=<?= time(); ?>"></script>
 </body>
