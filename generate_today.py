@@ -253,7 +253,7 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     # print(product_name)
-    return len(name) < 6000
+    return len(name) < 60
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
