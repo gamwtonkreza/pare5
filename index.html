@@ -9,13 +9,22 @@
             const day = new Date().getDay();
             const topH1 = document.getElementById('topHeader');
             const bottomH1 = document.getElementById('bottomHeader');
+
+            no_foniades_days = [6, 1, 2]
+
+            days_plural = {
+                0: "Κυριακές",
+                1: "Δευτέρες",
+                2: "Τρίτες",
+                3: "Τετάρτες",
+                4: "Πέμπτες",
+                5: "Παρασκευές",
+                6: "Σάββατα"
+            };
             
-            if (day === 1) { // Monday
+            if (day in no_foniades_days) {
                 topH1.textContent = "Πάρε 5 Special Edition";
-                bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών Δευτέρες";
-            } else if (day === 3) { // Tuesday
-                topH1.textContent = "Πάρε 5 Special Edition";
-                bottomH1.textContent = "";
+                bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών" + " " + days_plural[day];
             } else {
                 topH1.textContent = "Πάρε 5";
                 bottomH1.textContent = ""; // Empty for non-Monday

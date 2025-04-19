@@ -287,7 +287,11 @@ e = exports.merge(country_codes, on='country_code')
 
 # if monday keep only products that are exported to USA, Germany, China
 
-no_foniades_monday = datetime.date.today().weekday() == 0
+no_foniades = datetime.date.today().weekday() in [5, 6, 0, 4]
+foniades = {"USA", "Germany", "China"}
+
+if no_foniades:
+    print("No foniades")
 
 found = False
 for idx in random.sample(range(len(product_codes)), len(product_codes)):
@@ -300,12 +304,12 @@ for idx in random.sample(range(len(product_codes)), len(product_codes)):
     if not acceptable_name(product_name):
         continue
 
-    if no_foniades_monday:
-        if not {"USA", "China", "Germany"}.issubset(top5_countries):
+    if no_foniades:
+        if not foniades.issubset(top5_countries):
             continue
 
         # remove USA Germany China from current
-        current = current[~current["country_name"].isin(["USA", "Germany", "China"])]
+        current = current[~current["country_name"].isin(foniades)]
 
     sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
 
@@ -333,7 +337,7 @@ if not found:
 (country_codes_filtered, _) = get_countries_by_year(year)
 # # remove usa germany china from country_codes
 
-if no_foniades_monday:
+if no_foniades:
     country_codes_filtered.pop("USA", None)
     country_codes_filtered.pop("Germany", None)
     country_codes_filtered.pop("China", None)
