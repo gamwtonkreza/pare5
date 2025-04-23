@@ -22,7 +22,7 @@
                 6: "Σάββατα"
             };
             
-            if (day in no_foniades_days) {
+            if (no_foniades_days.includes(day)) {
                 topH1.textContent = "Πάρε 5 Special Edition";
                 bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών" + " " + days_plural[day];
             } else {

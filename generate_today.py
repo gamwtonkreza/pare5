@@ -351,7 +351,8 @@ today_json = {
     "exporters": [
         { "country_code": row.country_code, "value" : row.value }
         for row in e.itertuples()
-    ]
+    ],
+    "js_readable_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
 }
 
 with open('today.json', 'w') as f:
