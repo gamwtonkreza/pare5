@@ -369,13 +369,8 @@ def save_json(data, filename='today.json'):
     with open(filename, 'w') as f:
         f.write(json.dumps(data, indent=4))
 
-def main():
-    # Read and increment reroller value
-    reroller = read_reroller()
-    
-    # Set random seed based on today's unique ID
-    random.seed(today_id(reroller))
-    
+def get_single_day_json():
+   
     # Generate random year and print
     year = get_random_year()
     print("Year:", year)
@@ -427,9 +422,14 @@ def main():
         emoji_dict,
         filtered_exports
     )
-    
-    # Save to file
-    save_json(today_json)
+
+    return today_json
 
 if __name__ == "__main__":
-    main()
+    # Read and increment reroller value
+    reroller = read_reroller()
+    
+    # Set random seed based on today's unique ID
+    random.seed(today_id(reroller))
+    
+    save_json(get_single_day_json())
