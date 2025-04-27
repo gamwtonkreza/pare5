@@ -3,25 +3,26 @@ import pandas as pd
 import random
 import json
 
-def read_reroller():
-    """Read the reroller value from file and increment it."""
-    try:
-        with open('reroller.txt', 'r') as f:
-            reroller = int(f.read())
-        
-        with open('reroller.txt', 'w') as f:
-            f.write(str(reroller + 1))
-            
-        return reroller
-    except FileNotFoundError:
-        # Handle case where file doesn't exist
-        with open('reroller.txt', 'w') as f:
-            f.write('1')
-        return 0
+# reroller file
+with open('reroller.txt', 'r') as f:
+    reroller = int(f.read())
 
-def get_country_code_to_emoji():
-    """Returns a dictionary mapping country codes to emoji flags."""
-    return {
+with open('reroller.txt', 'w') as f:
+    f.write(str(reroller + 1))
+    
+
+def get_countries_by_year(year):
+    """
+    Returns a dictionary of country names and their codes valid for the specified year.
+    Uses standard English country names without year ranges in the final output.
+    
+    Args:
+        year (int): The year for which to get valid country codes
+        
+    Returns:
+        dict: A dictionary with clean country names as keys and country codes as values
+    """
+    country_code_to_emoji = {
         4: "🇦🇫", 8: "🇦🇱", 12: "🇩🇿", 16: "🇦🇸", 20: "🇦🇩",
         24: "🇦🇴", 28: "🇦🇬", 31: "🇦🇿", 32: "🇦🇷", 36: "🇦🇺",
         40: "🇦🇹", 44: "🇧🇸", 48: "🇧🇭", 50: "🇧🇩", 51: "🇦🇲",
@@ -72,9 +73,8 @@ def get_country_code_to_emoji():
         887: "🇾🇪", 891: "🇷🇸", 894: "🇿🇲"
     }
 
-def get_all_countries():
-    """Returns a dictionary of all countries and their codes with English names."""
-    return {
+    # Base dictionary of all countries and codes with English names
+    all_countries = {
         "Afghanistan": 4, "Albania": 8, "Algeria": 12, "American Samoa": 16, "Andorra": 20, 
         "Angola": 24, "Antigua and Barbuda": 28, "Azerbaijan": 31, "Argentina": 32, 
         "Australia": 36, "Austria": 40, "Bahamas": 44, "Bahrain": 48, "Bangladesh": 50, 
@@ -136,54 +136,38 @@ def get_all_countries():
         "Wallis and Futuna": 876, "Samoa": 882, "Yemen": 887, 
         "Serbia and Montenegro (...2005)": 891, "Zambia": 894
     }
-
-def clean_country_name(name):
-    """Remove year range part from country name."""
-    return name.split(" (...")[0]
-
-def get_countries_by_year(year):
-    """
-    Returns a dictionary of country names and their codes valid for the specified year.
-    Uses standard English country names without year ranges in the final output.
-    
-    Args:
-        year (int): The year for which to get valid country codes
-        
-    Returns:
-        tuple: (valid_countries, country_code_to_emoji)
-            - valid_countries: A dictionary with clean country names as keys and country codes as values
-            - country_code_to_emoji: A dictionary mapping country codes to emoji flags
-    """
-    all_countries = get_all_countries()
-    country_code_to_emoji = get_country_code_to_emoji()
     
     # Creating a valid countries dictionary for the specified year
     valid_countries = {}
+    
+    # Clean country name function
+    def clean_name(name):
+        return name.split(" (...")[0]  # Remove the year range part if present
     
     # Process each country based on year ranges
     for country, code in all_countries.items():
         # Extract year information from country name if present
         if "(...1990)" in country:
             if year <= 1990:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...1992)" in country:
             if year <= 1992:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...1998)" in country:
             if year <= 1998:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...1999)" in country:
             if year <= 1999:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...2005)" in country:
             if year <= 2005:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...2010)" in country:
             if year <= 2010:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif "(...2011)" in country:
             if year <= 2011:
-                valid_countries[clean_country_name(country)] = code
+                valid_countries[clean_name(country)] = code
         elif country == "East Germany (...1990)":
             if year <= 1990:
                 valid_countries["East Germany"] = code
@@ -198,8 +182,8 @@ def get_countries_by_year(year):
                     valid_countries["USSR"] = code
             # Belarus, Ukraine, etc. became independent after USSR dissolution
             elif country in ["Belarus", "Ukraine", "Kazakhstan", "Armenia", "Azerbaijan", 
-                          "Estonia", "Georgia", "Kyrgyzstan", "Latvia", "Lithuania", 
-                          "Moldova", "Tajikistan", "Turkmenistan", "Uzbekistan"]:
+                            "Estonia", "Georgia", "Kyrgyzstan", "Latvia", "Lithuania", 
+                            "Moldova", "Tajikistan", "Turkmenistan", "Uzbekistan"]:
                 if year >= 1991:
                     valid_countries[country] = code
             # Czechoslovakia split in 1993
@@ -249,187 +233,127 @@ def get_countries_by_year(year):
             # For all other countries without specific year constraints
             else:
                 valid_countries[country] = code
-    
-    # Filter emoji dictionary to only include valid country codes for the year
-    filtered_emoji = {
+
+
+    country_code_to_emoji = {
         k: v for k, v in country_code_to_emoji.items() 
         if k in valid_countries.values()
     }
-    
-    return (valid_countries, filtered_emoji)
 
-def today_id(reroller):
-    """Generate a unique ID for each day."""
+    return (valid_countries, country_code_to_emoji)
+
+# unique id for each day
+def today_id() -> int:
     today = datetime.date.today()
     day = today.day + 1
     month = today.month
     year = today.year
-    return reroller * year * 10000 + month * 100 + day
 
-def is_acceptable_name(name):
-    """Check if a product name is acceptable (less than 60 characters)."""
+    return reroller*year*10000 + month*100 + day
+
+def acceptable_name(name: str) -> bool:
+    # print(product_name)
     return len(name) < 60
 
-def get_random_year():
-    """Generate a random year between 1995 and 2023."""
-    return random.randint(1995, 2023)
+# read CSV_DATA/product_codes.csv
+product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 
-def filter_exports_by_year(exports_data, year):
-    """Filter exports data for the specified year."""
-    return exports_data[exports_data['year'] == year]
+# initialize random machine with today_id
+random.seed(today_id())
 
-def create_country_codes_dataframe(country_codes):
-    """Convert country codes dictionary to a DataFrame."""
-    df = pd.DataFrame.from_dict(country_codes, orient='index', columns=['country_code']).reset_index()
-    df.columns = ['country_name', 'country_code']
-    return df
+year = random.randint(1995, 2023)
 
-def is_foniades_day():
-    """Check if today is a day when special filtering rules apply."""
-    return datetime.date.today().weekday() in [5, 6, 0, 4]
+print("Year:", year)
 
-def get_foniades_countries():
-    """Return the set of countries used for special filtering on certain days."""
-    return {"USA", "Germany", "China"}
+# exports = pd.read_csv('CSV_DATA/exports.csv') 
+exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
+exports = exports_full[exports_full['year'] == year]
+(country_codes, emoji) = get_countries_by_year(year)
 
-def find_suitable_product(product_codes, exports_data, country_codes_df, apply_foniades_filter=False, foniades_countries=None):
-    """
-    Find a suitable product from the product codes that meets the criteria.
-    
-    Args:
-        product_codes (DataFrame): DataFrame containing product codes and names
-        exports_data (DataFrame): DataFrame containing export data
-        country_codes_df (DataFrame): DataFrame with country names and codes
-        apply_foniades_filter (bool): Whether to apply the special filtering rules
-        foniades_countries (set): Set of country names to check for in top exporters
-        
-    Returns:
-        tuple: (product_name, product_exports_data, top5_countries_value) or (None, None, None) if not found
-    """
-    merged_data = exports_data.merge(country_codes_df, on='country_code')
-    
-    for idx in random.sample(range(len(product_codes)), len(product_codes)):
-        product_code, product_name = product_codes.iloc[idx]
-        
-        if not is_acceptable_name(product_name):
+
+# sum_of_top_5 = float(exports.sort_values(by='value')['value'][-5:].sum())
+
+# make df from country_codes
+country_codes = pd.DataFrame.from_dict(country_codes, orient='index', columns=['country_code']).reset_index()
+country_codes.columns = ['country_name', 'country_code']
+
+e = exports.merge(country_codes, on='country_code')
+
+
+# product_codes = product_codes[product_codes["description"].str.contains("firearm", case=False)]
+# product_codes
+
+# keep only ones with acceptable product names
+
+# if monday keep only products that are exported to USA, Germany, China
+
+no_foniades = datetime.date.today().weekday() in [5, 6, 0, 4]
+foniades = {"USA", "Germany", "China"}
+
+if no_foniades:
+    print("No foniades")
+
+found = False
+for idx in random.sample(range(len(product_codes)), len(product_codes)):
+    product_code, product_name = product_codes.iloc[idx]
+
+    current = e[e["product_code"] == product_code]
+
+    top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
+
+    if not acceptable_name(product_name):
+        continue
+
+    if no_foniades:
+        if not foniades.issubset(top5_countries):
             continue
-            
-        current = merged_data[merged_data["product_code"] == product_code]
-        top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
-        
-        if apply_foniades_filter:
-            if not foniades_countries.issubset(top5_countries):
-                continue
-            # Remove foniades countries from current dataset
-            current = current[~current["country_name"].isin(foniades_countries)]
-        
-        # Calculate sum of top 5 exporters
-        sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
-        
-        if sum_of_top_5 < 10_000:
-            continue
-            
-        # Ask user if they want to keep this product
-        print("Product:", product_name)
-        
-        if input("Keep? (y/n) ") == "n":
-            continue
-            
-        sorted_data = current.sort_values(by='value', ascending=False)
-        print("Chose product:", product_name)
-        
-        return product_name, sorted_data, sum_of_top_5
-    
-    return None, None, None
 
-def filter_countries_by_foniades(country_codes, foniades_countries):
-    """Remove foniades countries from country codes dictionary."""
-    filtered_codes = country_codes.copy()
-    for country in foniades_countries:
-        filtered_codes.pop(country, None)
-    return filtered_codes
+        # remove USA Germany China from current
+        current = current[~current["country_name"].isin(foniades)]
 
-def create_today_json(product_name, year, sum_of_top_5, country_codes, emoji, exporters_data):
-    """Create JSON data structure for today's analysis."""
-    return {
-        "product_name": product_name,
-        "year": year,
-        "sum_of_top_5": sum_of_top_5,
-        "country_codes": country_codes,
-        "emojis": emoji,
-        "exporters": [
-            {"country_code": row.country_code, "value": row.value}
-            for row in exporters_data.itertuples()
-        ],
-        "js_readable_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-    }
+    sum_of_top_5 = float(current.sort_values(by='value')['value'][-5:].sum())
 
-def save_json(data, filename='today.json'):
-    """Save data as JSON to the specified file."""
-    with open(filename, 'w') as f:
-        f.write(json.dumps(data, indent=4))
+    if sum_of_top_5 < 10_000:
+        continue
 
-def main():
-    # Read and increment reroller value
-    reroller = read_reroller()
+    # Ask user if they want to keep this product
+    print("Product:", product_name)
     
-    # Set random seed based on today's unique ID
-    random.seed(today_id(reroller))
-    
-    # Generate random year and print
-    year = get_random_year()
-    print("Year:", year)
-    
-    # Read data files
-    product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
-    exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
-    
-    # Filter exports for the chosen year
-    exports_for_year = filter_exports_by_year(exports_full, year)
-    
-    # Get country codes and emojis valid for the year
-    country_codes, emoji_dict = get_countries_by_year(year)
-    
-    # Create DataFrame from country codes dict
-    country_codes_df = create_country_codes_dataframe(country_codes)
-    
-    # Check if today is a day with special filtering rules
-    is_special_day = is_foniades_day()
-    foniades_countries = get_foniades_countries() if is_special_day else None
-    
-    if is_special_day:
-        print("No foniades")
-    
-    # Find a suitable product
-    product_name, filtered_exports, sum_of_top_5 = find_suitable_product(
-        product_codes, 
-        exports_for_year, 
-        country_codes_df, 
-        is_special_day, 
-        foniades_countries
-    )
-    
-    if product_name is None:
-        print("No suitable product found")
-        return
-    
-    # Filter country codes if needed
-    filtered_country_codes = country_codes
-    if is_special_day:
-        filtered_country_codes = filter_countries_by_foniades(country_codes, foniades_countries)
-    
-    # Create JSON data
-    today_json = create_today_json(
-        product_name,
-        year,
-        sum_of_top_5,
-        filtered_country_codes,
-        emoji_dict,
-        filtered_exports
-    )
-    
-    # Save to file
-    save_json(today_json)
+    if input("Keep? (y/n) ") == "n":
+        continue
 
-if __name__ == "__main__":
-    main()
+    e = current.sort_values(by='value', ascending=False)
+
+    print("Chose product:", product_name)
+
+    found = True
+    break
+
+if not found:
+    print("No suitable product found")
+    exit()
+
+# # usa germany china country codes
+(country_codes_filtered, _) = get_countries_by_year(year)
+# # remove usa germany china from country_codes
+
+if no_foniades:
+    country_codes_filtered.pop("USA", None)
+    country_codes_filtered.pop("Germany", None)
+    country_codes_filtered.pop("China", None)
+
+today_json = {
+    "product_name": product_name,
+    "year": year,
+    "sum_of_top_5": sum_of_top_5,
+    "country_codes": country_codes_filtered,
+    "emojis": emoji,
+    "exporters": [
+        { "country_code": row.country_code, "value" : row.value }
+        for row in e.itertuples()
+    ],
+    "js_readable_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+}
+
+with open('today.json', 'w') as f:
+    f.write(json.dumps(today_json, indent=4))
