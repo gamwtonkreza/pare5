@@ -255,7 +255,8 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     # print(product_name)
-    return len(name) < 30
+    # return len(name) < 30
+    return "flowers" in name.lower() or "rose" in name.lower()
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
@@ -296,8 +297,8 @@ def get_suggestions_for_year(year):
         top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
 
         if no_foniades:
-            if not foniades.issubset(top5_countries):
-                continue
+            # if not foniades.issubset(top5_countries):
+                # continue
 
             # remove USA Germany China from current
             current = current[~current["country_name"].isin(foniades)]

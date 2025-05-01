@@ -10,7 +10,7 @@
             const topH1 = document.getElementById('topHeader');
             const bottomH1 = document.getElementById('bottomHeader');
 
-            no_foniades_days = [5, 6, 0, 1]
+            no_foniades_days = [5, 6, 0, 1, 2, 3, 4];
 
             days_plural = {
                 0: "Κυριακές",
@@ -24,7 +24,8 @@
             
             if (no_foniades_days.includes(day)) {
                 topH1.textContent = "Πάρε 5 Special Edition";
-                bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών" + " " + days_plural[day];
+                // bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών" + " " + days_plural[day];
+                bottomH1.textContent = "Χωρίς Φωνιάδες των Λαών Εργατική Πρωτομαγιά!";
             } else {
                 topH1.textContent = "Πάρε 5";
                 bottomH1.textContent = ""; // Empty for non-Monday
