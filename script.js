@@ -760,9 +760,36 @@ function createInterface({today}) {
 }
 
 function todayChallenge() {
-  return fetch('/pare5/today.json')
+  return fetch('/pare5/total.json')
     .then(response => response.json())
-    .then(today => {
+    .then(total => {
+
+      // get number of days in current year before today
+      const today_date = new Date();
+      const year = today_date.getFullYear();
+      const startOfYear = new Date(year, 0, 1);
+      const daysInYear = Math.floor((today_date - startOfYear) / (1000 * 60 * 60 * 24));
+      const day_id = daysInYear + 1; // Add 1 to include today
+      
+      const challenge_number = day_id - total.today_day_of_year
+
+      const is_no_foniades = document.body.dataset.is_no_foniades === 'true';
+
+      // We skip over the days that don't match being foniades day or not
+
+      let matching = (game) => { 
+        return game.is_no_foniades == is_no_foniades;
+      }
+
+      total.games = total.games.filter(matching);
+
+      if (challenge_number >=  total.games.length) {
+        alert("SAS AGAPAW THIMISTE MOU NA TO ALLAXW <33")
+        return;
+      }
+
+      let today = total.games[challenge_number];
+
       // Ensure exporters have name property based on country_code
       today.exporters.forEach(exporter => {
         // Make sure country_code is an integer

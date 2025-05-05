@@ -255,8 +255,8 @@ def today_id() -> int:
 
 def acceptable_name(name: str) -> bool:
     # print(product_name)
-    # return len(name) < 30
-    return "flowers" in name.lower() or "rose" in name.lower()
+    return len(name) < 25
+    # return "flowers" in name.lower() or "rose" in name.lower()
 
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
