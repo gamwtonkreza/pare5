@@ -270,7 +270,7 @@ exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
 def get_suggestions_for_year(year):
 
     exports = exports_full[exports_full['year'] == year]
-    (country_codes, emoji) = get_countries_by_year(year)
+    (country_codes, _) = get_countries_by_year(year)
 
     # make df from country_codes
     country_codes = pd.DataFrame.from_dict(country_codes, orient='index', columns=['country_code']).reset_index()
@@ -288,7 +288,7 @@ def get_suggestions_for_year(year):
 
         e = e_original.copy()
 
-        foniades = {"USA", "Germany", "China"}
+        removed = {"USA", "Germany", "China"}
 
         product_code, product_name = product_codes.iloc[idx]
 
@@ -297,11 +297,11 @@ def get_suggestions_for_year(year):
         top5_countries = current.sort_values(by='value', ascending=False)[:5]["country_name"].values
 
         if no_foniades:
-            # if not foniades.issubset(top5_countries):
-                # continue
+            if removed.issubset(top5_countries):
+                continue
 
-            # remove USA Germany China from current
-            current = current[~current["country_name"].isin(foniades)]
+            # remove from current
+            current = current[~current["country_name"].isin(removed)]
 
         if not acceptable_name(product_name):
             continue
@@ -320,6 +320,8 @@ def get_suggestions_for_year(year):
 
         choice = input("Keep? ( [enter] = yes, n = no , y = change year, s = stop) ")
 
+        no_foniades_current = no_foniades
+
         match choice:
             case "y":
                 option = "year"
@@ -334,26 +336,27 @@ def get_suggestions_for_year(year):
             case _:
                 print("Invalid choice")
 
-        e = current.sort_values(by='value', ascending=False)
+        current = current.sort_values(by='value', ascending=False)
 
-        (country_codes_filtered, _) = get_countries_by_year(year)
+        (country_codes_filtered, emoji) = get_countries_by_year(year)
 
         # # remove usa germany china from country_codes
-        if no_foniades:
-            country_codes_filtered.pop("USA", None)
-            country_codes_filtered.pop("Germany", None)
-            country_codes_filtered.pop("China", None)
+        if no_foniades_current:
+            for country_name in removed:
+                country_code = country_codes_filtered.pop(country_name, None)
+                if country_code is not None:
+                    emoji.pop(country_code, None)
 
         day_json = {
             "product_name": product_name,
-            "is_no_foniades": no_foniades,
+            "is_no_foniades": no_foniades_current,
             "year": year,
             "sum_of_top_5": sum_of_top_5,
             "country_codes": country_codes_filtered,
             "emojis": emoji,
             "exporters": [
                 { "country_code": row.country_code, "value" : row.value }
-                for row in e.itertuples()
+                for row in current.itertuples()
             ]
         }
 
