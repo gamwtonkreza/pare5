@@ -3,24 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Πάρε 5</title>
+    <style>
+        /* Add styles for the KS counter box */
+        #ks-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            font-size: 16px;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
     <script>
         window.onload = function() {
             const day = new Date().getDay();
             const topH1 = document.getElementById('topHeader');
             const bottomH1 = document.getElementById('bottomHeader');
-
             // Define todays date (May 6th, 2025)
-
             const start_count = new Date(2025, 4, 6); // May is month 4 in JavaScript
             const today = new Date();
             const num_days = 12 - Math.floor((today - start_count) / (1000 * 60 * 60 * 24));
-
-            alert("ΠΑΜΕ ΠΑΛΑAAAAA " + num_days + "ΚΣ ΑΚΟΜΑ");
-            alert("Ο ΦΙΛΟΣ ΣΟΥ ΠΟΥ ΠΑΡΑΠΟΝΙΕΤΑΙ ΝΑ ΠΑΡΕΙ ΦΥΛΑΚΗ");
-
+            
+            // Create KS counter box instead of alert
+            const ksCounter = document.createElement('div');
+            ksCounter.id = 'ks-counter';
+            ksCounter.textContent = "ΠΑΜΕ ΠΑΛΑAAAAA " + num_days + "ΚΣ ΑΚΟΜΑ";
+            document.body.appendChild(ksCounter);
+            
+            // Make counter disappear after 5 seconds
+            setTimeout(() => {
+                ksCounter.style.transition = 'opacity 1s';
+                ksCounter.style.opacity = '0';
+                // Remove from DOM after fade out
+                setTimeout(() => {
+                    ksCounter.remove();
+                }, 1000);
+            }, 5000);
+            
             const no_foniades_days = [6, 0, 1];
-
             const days_plural = {
                 0: "Κυριακές",
                 1: "Δευτέρες",
