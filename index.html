@@ -10,7 +10,16 @@
             const topH1 = document.getElementById('topHeader');
             const bottomH1 = document.getElementById('bottomHeader');
 
-            const no_foniades_days = [6, 1];
+            // Define todays date (May 6th, 2025)
+
+            const start_count = new Date(2025, 4, 6); // May is month 4 in JavaScript
+            const today = new Date();
+            const num_days = 12 - Math.floor((today - start_count) / (1000 * 60 * 60 * 24));
+
+            alert("ΠΑΜΕ ΠΑΛΑAAAAA " + num_days + "ΚΣ ΑΚΟΜΑ");
+            alert("Ο ΦΙΛΟΣ ΣΟΥ ΠΟΥ ΠΑΡΑΠΟΝΙΕΤΑΙ ΝΑ ΠΑΡΕΙ ΦΥΛΑΚΗ");
+
+            const no_foniades_days = [6, 0, 1];
 
             const days_plural = {
                 0: "Κυριακές",

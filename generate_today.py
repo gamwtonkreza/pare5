@@ -382,6 +382,9 @@ if __name__ == "__main__":
         elif state == "stop":
             break
 
+    # randomize order of games
+    random.shuffle(total["games"])
+    
     # write to file
     with open('total.json', 'w') as f:
         f.write(json.dumps(total, indent=4))
