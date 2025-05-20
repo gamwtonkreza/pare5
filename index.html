@@ -32,15 +32,21 @@
             const topH1 = document.getElementById('topHeader');
             const bottomH1 = document.getElementById('bottomHeader');
             // Define todays date (May 6th, 2025)
-            const start_count = new Date(2025, 4, 6); // May is month 4 in JavaScript
+            const start_count = new Date(2025, 4, 20); // May is month 4 in JavaScript
             const today = new Date();
-            const num_days = 12 - Math.floor((today - start_count) / (1000 * 60 * 60 * 24));
+            const num_days = Math.floor((today - start_count) / (1000 * 60 * 60 * 24));
             
-            // Create KS counter box instead of alert
-            const ksCounter = document.createElement('div');
-            ksCounter.id = 'ks-counter';
-            ksCounter.textContent = "ΠΑΜΕ ΠΑΛΑAAAAA " + num_days + "ΚΣ ΑΚΟΜΑ";
-            document.body.appendChild(ksCounter);
+            if (num_days == 0) {
+                const ksCounter = document.createElement('div');
+                ksCounter.id = 'ks-counter';
+                ksCounter.textContent = "420 Day babbbbby! :D";
+                document.body.appendChild(ksCounter);
+            } else {
+                const ksCounter = document.createElement('div');
+                ksCounter.id = 'ks-counter';
+                ksCounter.textContent = num_days + " μέρες με τον παλα";
+                document.body.appendChild(ksCounter);
+            }
             
             // Make counter disappear after 5 seconds
             setTimeout(() => {
