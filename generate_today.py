@@ -261,7 +261,7 @@ def acceptable_name(name: str) -> bool:
 # read CSV_DATA/product_codes.csv
 product_codes = pd.read_csv('CSV_DATA/product_codes.csv')
 
-year = random.randint(1995, 2023)
+year = random.randint(2021, 2023)
 print("Year:", year)
 exports_full = pd.read_csv('CSV_DATA/exports_full.csv')
 
